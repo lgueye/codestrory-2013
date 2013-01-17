@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
  */
 @Component
 @Path("/")
-public class Q1 {
+public class Q1Resource {
 
   @Produces(MediaType.TEXT_PLAIN)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)

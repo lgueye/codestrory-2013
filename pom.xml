@@ -328,6 +328,22 @@
 
     <build>
         <finalName>codestory-2013</finalName>
+        <resources>
+            <!-- Copy .properties files to output and filter them -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/log4j.xml</include>
+                </includes>
+            </resource>
+            <!-- Copy .xml files to output and do not filter them -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
         <testResources>
             <!-- Copy .properties files to output and filter them -->
             <testResource>

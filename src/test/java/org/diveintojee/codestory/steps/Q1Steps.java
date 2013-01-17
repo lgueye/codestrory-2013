@@ -6,7 +6,7 @@ import com.sun.jersey.api.client.ClientResponse;
 
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.net.URLCodec;
-import org.diveintojee.codestory2013.Q1;
+import org.diveintojee.codestory2013.Q1Resource;
 import org.hamcrest.Matchers;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
@@ -24,7 +24,7 @@ import javax.ws.rs.core.UriBuilder;
  */
 public class Q1Steps extends BackendBaseSteps {
 
-  private static final String Q1_URI = UriBuilder.fromResource(Q1.class).build().toString();
+  private static final String Q1_URI = UriBuilder.fromResource(Q1Resource.class).build().toString();
 
   public Q1Steps(Exchange exchange) {
     super(exchange);
