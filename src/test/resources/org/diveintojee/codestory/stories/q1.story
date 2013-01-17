@@ -1,8 +1,8 @@
 Q1 stories
 
 Meta:
-@refs 1
-@progress wip
+@refs q1
+@progress done
 
 Narrative:
 Given my server is ready
