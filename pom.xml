@@ -7,6 +7,7 @@
     <version>0.1-SNAPSHOT</version>
     <name>codestory-2013 Maven Webapp</name>
     <url>http://github.com/lgueye/codestory-2013</url>
+
     <prerequisites>
         <maven>3.0.3</maven>
     </prerequisites>
@@ -19,9 +20,10 @@
             <organization>org.diveintojee</organization>
             <organizationUrl>http://deepintojee.wordpress.com</organizationUrl>
             <timezone>+1</timezone>
-            <url>http://github.com/lgueye/elasticsearch-geo</url>
+            <url>http://github.com/lgueye/codestory-2013</url>
         </developer>
     </developers>
+
     <properties>
         <junit.version>4.11</junit.version>
         <logback.version>1.0.7</logback.version>
@@ -326,6 +328,23 @@
 
     <build>
         <finalName>codestory-2013</finalName>
+        <testResources>
+            <!-- Copy .properties files to output and filter them -->
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/log4j.xml</include>
+                </includes>
+            </testResource>
+            <!-- Copy .xml files to output and do not filter them -->
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+            </testResource>
+        </testResources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

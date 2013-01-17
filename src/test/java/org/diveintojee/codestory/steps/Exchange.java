@@ -104,4 +104,7 @@ public class Exchange {
                 .acceptLanguage(this.request.getRequestedLanguage()).delete(ClientResponse.class);
     }
 
+  public ClientResponse getClientResponse() {
+    return clientResponse;
+  }
 }

@@ -13,5 +13,5 @@ Scenario: the server should answer to the new question
 When the server is asked the question "Quelle est ton adresse email"
 Then the response code should be:
 | code | body                          | requiredType |
-| 200  | louis.gueye@gmail.com         | text/html    |
+| 200  | louis.gueye@gmail.com         | text/plain   |
 
