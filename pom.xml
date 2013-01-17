@@ -57,7 +57,7 @@
         <jbehave.version>4.0-beta-3</jbehave.version>
         <jbehave-site-resources.version>3.1.1</jbehave-site-resources.version>
         <httpclient.version>4.2.2</httpclient.version>
-        <org.diveintojee.codestory.log.level>INFO</org.diveintojee.codestory.log.level>
+        <org.diveintojee.codestory2013.log.level>INFO</org.diveintojee.codestory2013.log.level>
 
     </properties>
 
