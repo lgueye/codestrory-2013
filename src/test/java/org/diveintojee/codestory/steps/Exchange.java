@@ -56,11 +56,10 @@ public class Exchange {
     /**
      * @return
      */
-    public void createEntity() {
+    public void sendGetRequest() {
         final URI uri = newURI(this.request.getUri());
         this.clientResponse = this.jerseyClient.resource(uri).type(this.request.getType())
-                .accept(this.request.getRequestedType()).acceptLanguage(this.request.getRequestedLanguage())
-                .post(ClientResponse.class, this.request.getBody());
+                .accept(this.request.getRequestedType()).get(ClientResponse.class);
     }
 
     /**
@@ -89,19 +88,6 @@ public class Exchange {
      */
     public Request getRequest() {
         return this.request;
-    }
-
-    public void findEntityByCriteria() {
-        final URI uri = newURI(this.request.getUri());
-        this.clientResponse = this.jerseyClient.resource(uri).type(this.request.getType())
-                .accept(this.request.getRequestedType()).acceptLanguage(this.request.getRequestedLanguage())
-                .post(ClientResponse.class, this.request.getBody());
-    }
-
-    public void deleteEntity() {
-        final URI uri = newURI(this.request.getUri());
-        this.clientResponse = this.jerseyClient.resource(uri).accept(this.request.getRequestedType())
-                .acceptLanguage(this.request.getRequestedLanguage()).delete(ClientResponse.class);
     }
 
   public ClientResponse getClientResponse() {

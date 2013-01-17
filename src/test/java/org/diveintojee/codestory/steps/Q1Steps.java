@@ -24,19 +24,21 @@ import javax.ws.rs.core.UriBuilder;
  */
 public class Q1Steps extends BackendBaseSteps {
 
-  private static final String Q1_URI = UriBuilder.fromResource(Q1Resource.class).build().toString();
-
   public Q1Steps(Exchange exchange) {
     super(exchange);
   }
 
   @When("the server is asked the question \"$question\"")
   public void askQuestion(@Named("question") String question) throws EncoderException {
-    this.exchange.getRequest().setType(MediaType.APPLICATION_FORM_URLENCODED);
-    this.exchange.getRequest().setBody("q=" + new URLCodec().encode(question));
+    this.exchange.getRequest().setType("*/*");
     this.exchange.getRequest().setRequestedType(MediaType.TEXT_PLAIN);
-    this.exchange.getRequest().setUri(Q1_URI);
-    this.exchange.createEntity();
+    final
+    String
+        uri =
+        UriBuilder.fromResource(Q1Resource.class).queryParam("q", question)
+            .build().toString();
+    this.exchange.getRequest().setUri(uri);
+    this.exchange.sendGetRequest();
   }
 
   @Then("the response code should be: $table")
