@@ -17,7 +17,6 @@ public class Q1Resource {
     @Produces(MediaType.TEXT_PLAIN)
     @GET
     public Response readQuestion(@QueryParam("q") String q) {
-        System.out.println("q = " + q);
         final Response.ResponseBuilder ok = Response.ok();
         if ("Quelle est ton adresse email".equals(q)) {
             return ok.entity("louis.gueye@gmail.com").build();
