@@ -554,4 +554,18 @@
 
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>done</id>
+            <properties>
+                <jbehave.meta.filters>+progress done</jbehave.meta.filters>
+            </properties>
+        </profile>
+        <profile>
+            <id>wip</id>
+            <properties>
+                <jbehave.meta.filters>+progress wip</jbehave.meta.filters>
+            </properties>
+        </profile>
+    </profiles>
 </project>
