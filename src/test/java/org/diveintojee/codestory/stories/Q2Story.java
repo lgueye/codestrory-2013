@@ -4,7 +4,6 @@
 package org.diveintojee.codestory.stories;
 
 import org.diveintojee.codestory.steps.Exchange;
-import org.diveintojee.codestory.steps.Q1Steps;
 import org.diveintojee.codestory.steps.Q2Steps;
 import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.StoryFinder;

@@ -13,7 +13,6 @@ import org.jbehave.core.model.OutcomesTable;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +22,7 @@ public class Q2Steps extends BackendBaseSteps {
     public Q2Steps(Exchange exchange) {
         super(exchange);
     }
+
     @When("the server is asked the question \"$question\"")
     public void askQuestion(@Named("question") String question) throws EncoderException {
         this.exchange.getRequest().setType("*/*");

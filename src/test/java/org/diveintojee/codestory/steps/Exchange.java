@@ -90,7 +90,7 @@ public class Exchange {
         return this.request;
     }
 
-  public ClientResponse getClientResponse() {
-    return clientResponse;
-  }
+    public ClientResponse getClientResponse() {
+        return clientResponse;
+    }
 }
