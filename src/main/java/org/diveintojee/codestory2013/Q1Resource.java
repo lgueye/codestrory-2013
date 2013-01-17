@@ -25,6 +25,8 @@ public class Q1Resource {
     final Response.ResponseBuilder ok = Response.ok();
     if ("Quelle est ton adresse email".equals(q)) {
       return ok.entity("louis.gueye@gmail.com").build();
+    } else if ("Es tu heureux de participer(OUI/NON)".equals(q)) {
+        return ok.entity("OUI").build();
     } else {
       return ok.build();
     }
