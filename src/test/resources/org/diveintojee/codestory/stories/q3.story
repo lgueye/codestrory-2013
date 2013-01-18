@@ -13,5 +13,5 @@ Scenario: the server should answer to the new question
 When the server is asked the question "Es tu abonne a la mailing list(OUI/NON)"
 Then the response code should be:
 | code | body                          | requiredType |
-| 200  | NON                           | text/plain   |
+| 200  | OUI                           | text/plain   |
 

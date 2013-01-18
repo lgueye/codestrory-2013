@@ -23,7 +23,7 @@ public class Q1Resource {
         } else if ("Es tu heureux de participer(OUI/NON)".equals(q)) {
             return ok.entity("OUI").build();
         } else if ("Es tu abonne a la mailing list(OUI/NON)".equals(q)) {
-            return ok.entity("NON").build();
+            return ok.entity("OUI").build();
         } else {
             return ok.build();
         }
