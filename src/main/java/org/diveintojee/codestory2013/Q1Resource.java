@@ -24,6 +24,8 @@ public class Q1Resource {
             return ok.entity("OUI").build();
         } else if ("Es tu abonne a la mailing list(OUI/NON)".equals(q)) {
             return ok.entity("OUI").build();
+        } else if ("Es tu pret a recevoir une enonce au format markdown par http post(OUI/NON)".equals(q)) {
+            return ok.entity("OUI").build();
         } else {
             return ok.build();
         }
