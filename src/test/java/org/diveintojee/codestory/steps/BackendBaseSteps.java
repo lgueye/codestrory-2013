@@ -24,11 +24,6 @@ public abstract class BackendBaseSteps {
         this.exchange.assertExpectedStatus(statusCode);
     }
 
-    @Given("I provide \"<uid>\" uid and \"<password>\" password")
-    public void authenticate(@Named("uid") final String uid, @Named("password") final String password) {
-        this.exchange.setCredentials(uid, password);
-    }
-
     @Given("I accept \"<responseLanguage>\" language")
     public void setAcceptLanguage(@Named("responseLanguage") final String requestedLanguage) {
         this.exchange.getRequest().setRequestedLanguage(requestedLanguage);

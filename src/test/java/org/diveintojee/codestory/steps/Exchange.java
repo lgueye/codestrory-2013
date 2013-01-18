@@ -1,16 +1,13 @@
 package org.diveintojee.codestory.steps;
 
 import com.google.common.base.Strings;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.client.apache4.ApacheHttpClient4;
 import com.sun.jersey.client.apache4.config.DefaultApacheHttpClient4Config;
-
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.junit.Assert;
 
@@ -65,6 +62,17 @@ public class Exchange {
     }
 
     /**
+     * @return
+     */
+    public void sendPostRequest() {
+        final URI uri = newURI(this.request.getUri());
+        this.clientResponse = this.jerseyClient
+                .resource(uri)
+                .type(this.request.getType())
+                .post(ClientResponse.class, this.request.getBody());
+    }
+
+    /**
      * @param uriAsString
      * @return
      */
@@ -72,17 +80,6 @@ public class Exchange {
         if (Strings.isNullOrEmpty(uriAsString)) return URI.create(baseEndPoint);
         if (!uriAsString.startsWith("/")) return URI.create(uriAsString);
         return URI.create(baseEndPoint + uriAsString);
-    }
-
-    /**
-     * @param uid
-     * @param password
-     */
-    public void setCredentials(String uid, String password) {
-        this.request.setUid(uid);
-        this.jerseyClient.removeAllFilters();
-        this.jerseyClient.addFilter(new LoggingFilter());
-        this.jerseyClient.addFilter(new HTTPBasicAuthFilter(uid, password));
     }
 
     /**
