@@ -35,3 +35,9 @@ When the server is asked the question "Es tu pret a recevoir une enonce au forma
 Then the response code should be:
 | code | body                          | requiredType |
 | 200  | OUI                           | text/plain   |
+
+Scenario: the server should answer to the new question
+When the server is asked the question "Est ce que tu reponds toujours oui(OUI/NON)"
+Then the response code should be:
+| code | body                          | requiredType |
+| 200  | NON                           | text/plain   |
