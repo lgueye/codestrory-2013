@@ -1,7 +1,8 @@
 package org.diveintojee.codestory.steps;
 
-import javax.ws.rs.core.MediaType;
 import java.util.Locale;
+
+import javax.ws.rs.core.MediaType;
 
 /**
  * User: louis.gueye@gmail.com

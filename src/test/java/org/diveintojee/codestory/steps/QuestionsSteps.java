@@ -1,9 +1,11 @@
 package org.diveintojee.codestory.steps;
 
 import com.google.common.collect.ImmutableMap;
+
 import com.sun.jersey.api.client.ClientResponse;
+
 import org.apache.commons.codec.EncoderException;
-import org.diveintojee.codestory2013.Q1Resource;
+import org.diveintojee.codestory2013.QuestionsResource;
 import org.hamcrest.Matchers;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
@@ -11,16 +13,17 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.jbehave.core.model.OutcomesTable;
 
+import java.util.Map;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
-import java.util.Map;
 
 /**
  * @author louis.gueye@gmail.com
  */
-public class Q1Steps extends BackendBaseSteps {
+public class QuestionsSteps extends BackendBaseSteps {
 
-    public Q1Steps(Exchange exchange) {
+    public QuestionsSteps(Exchange exchange) {
         super(exchange);
     }
 
@@ -31,7 +34,7 @@ public class Q1Steps extends BackendBaseSteps {
         final
         String
                 uri =
-                UriBuilder.fromResource(Q1Resource.class).queryParam("q", question)
+                UriBuilder.fromResource(QuestionsResource.class).queryParam("q", question)
                         .build().toString();
         this.exchange.getRequest().setUri(uri);
         this.exchange.sendGetRequest();
