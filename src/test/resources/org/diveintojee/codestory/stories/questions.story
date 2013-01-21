@@ -5,7 +5,9 @@ Meta:
 @refs q2
 @refs q3
 @refs q4
-@progress done
+@refs q5
+@refs q6
+@progress wip
 
 Narrative:
 Given my server is ready
@@ -41,3 +43,9 @@ When the server is asked the question "Est ce que tu reponds toujours oui(OUI/NO
 Then the response code should be:
 | code | body                          | requiredType |
 | 200  | NON                           | text/plain   |
+
+Scenario: the server should answer to the new question
+When the server is asked the question "As tu bien recu le premier enonce(OUI/NON)"
+Then the response code should be:
+| code | body                          | requiredType |
+| 200  | OUI                           | text/plain   |
