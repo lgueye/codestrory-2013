@@ -15,7 +15,7 @@ public class EnonceResource {
     @Path("/{id}")
     @POST
     public Response readEnonce(@PathParam("id") Long id, String body) {
-        System.out.println("body = " + body);
+        System.out.println(body);
         final Response.ResponseBuilder ok = Response.ok();
         return ok.entity(body).build();
     }
