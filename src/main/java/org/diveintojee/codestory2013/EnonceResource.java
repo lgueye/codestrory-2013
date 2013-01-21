@@ -13,7 +13,6 @@ import javax.ws.rs.core.Response;
 public class EnonceResource {
 
     @Path("/{id}")
-    @Consumes("text/*")
     @POST
     public Response readEnonce(@PathParam("id") Long id, String body) {
         System.out.println("body = " + body);
