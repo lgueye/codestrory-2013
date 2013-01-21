@@ -33,21 +33,8 @@ public class EnonceSteps extends BackendBaseSteps {
         this.exchange.sendPostRequest();
     }
 
-    @Then("the response should be: $table")
-    public void assertResponse(ExamplesTable table) {
-        Map<String, String> actualRow = actualRow(this.exchange.getClientResponse());
-        for (int i = 0; i < table.getRowCount(); i++) {
-            Map<String, String> expectedRow = table.getRow(i);
-            for (String key : expectedRow.keySet()) {
-                OutcomesTable outcomes = new OutcomesTable();
-                outcomes.addOutcome(key, actualRow.get(key), Matchers.equalTo(expectedRow.get(key)));
-                outcomes.verify();
-            }
-
-        }
-    }
-
-    private Map<String, String> actualRow(ClientResponse clientResponse) {
+    @Override
+    public Map<String, String> actualRow(ClientResponse clientResponse) {
         ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<String, String>();
         builder.put("code", String.valueOf(clientResponse.getStatus()));
         builder.put("body", String.valueOf(clientResponse.getEntity(String.class)));
