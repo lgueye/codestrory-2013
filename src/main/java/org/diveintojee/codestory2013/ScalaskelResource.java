@@ -18,7 +18,7 @@ public class ScalaskelResource {
     @Autowired
     private ScalaskelService scalaskelService;
 
-    @Path("/eonon/{id}")
+    @Path("/eononce/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response getChange(@PathParam("id") String id) {
