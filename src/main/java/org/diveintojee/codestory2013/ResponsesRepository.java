@@ -18,6 +18,7 @@ public class ResponsesRepository {
                 .put("Es tu abonne a la mailing list(OUI/NON)", "OUI")
                 .put("Es tu pret a recevoir une enonce au format markdown par http post(OUI/NON)", "OUI")
                 .put("Est ce que tu reponds toujours oui(OUI/NON)", "NON")
+                .put("As tu bien recu le premier enonce(OUI/NON)", "OUI")
                 .build();
     }
 

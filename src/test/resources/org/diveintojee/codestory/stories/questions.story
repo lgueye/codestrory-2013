@@ -7,7 +7,7 @@ Meta:
 @refs q4
 @refs q5
 @refs q6
-@progress wip
+@progress done
 
 Narrative:
 Given my server is ready
