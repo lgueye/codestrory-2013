@@ -2,8 +2,6 @@ package org.diveintojee.codestory2013;
 
 import org.springframework.stereotype.Component;
 
-import java.util.regex.Pattern;
-
 /**
  * User: lgueye Date: 22/01/13 Time: 17:49
  */
@@ -17,7 +15,7 @@ public class CalculatorService {
       case plus: return String.valueOf(operandes[0] + operandes[1]);
       case multiply: return String.valueOf(operandes[0] * operandes[1]);
       case divide: return String.valueOf(operandes[0] / operandes[1]);
-      case minus: return String.valueOf(operandes[0] / operandes[1]);
+      case minus: return String.valueOf(operandes[0] - operandes[1]);
     }
     return "";
   }
@@ -33,9 +31,9 @@ public class CalculatorService {
   }
 
   private Operator resolveOperator(String q) {
-    if (matchesMinusOperation(q)) {
+    if (matchesSubtractOperation(q)) {
       return Operator.minus;
-    } else if (matchesPlusOperation(q)) {
+    } else if (matchesAddOperation(q)) {
       return Operator.plus;
     } else if (matchesDivideOperation(q)) {
       return Operator.divide;
@@ -47,19 +45,19 @@ public class CalculatorService {
 
   }
 
-  private boolean matchesMultiplyOperation(String q) {
+  boolean matchesMultiplyOperation(String q) {
     return q.matches("\\d+[\\*]\\d+");
   }
 
-  private boolean matchesDivideOperation(String q) {
+  boolean matchesDivideOperation(String q) {
     return q.matches("\\d+[/]\\d+");
   }
 
-  private boolean matchesPlusOperation(String q) {
+  boolean matchesAddOperation(String q) {
     return q.matches("\\d+[\\+]\\d+");
   }
 
-  private boolean matchesMinusOperation(String q) {
+  boolean matchesSubtractOperation(String q) {
     return q.matches("\\d+[\\-]\\d+");
   }
 
