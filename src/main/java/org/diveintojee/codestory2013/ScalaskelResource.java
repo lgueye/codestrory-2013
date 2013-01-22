@@ -26,7 +26,7 @@ public class ScalaskelResource {
     @Autowired
     private ScalaskelService scalaskelService;
 
-    @Path("/enonce/{id}")
+    @Path("/change/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response getChange(@PathParam("id") String id) throws IOException {

@@ -29,7 +29,7 @@ public class ScalaskelSteps extends BackendBaseSteps {
     public void getChange(@Named("id") String id) {
         this.exchange.getRequest().setType("*/*");
         this.exchange.getRequest().setRequestedType(MediaType.APPLICATION_JSON);
-        final String uri = UriBuilder.fromResource(ScalaskelResource.class).path("/enonce").path(id) .build().toString();
+        final String uri = UriBuilder.fromResource(ScalaskelResource.class).path("/change").path(id) .build().toString();
         this.exchange.getRequest().setUri(uri);
         this.exchange.sendGetRequest();
     }
