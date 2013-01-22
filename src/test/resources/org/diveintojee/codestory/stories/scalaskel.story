@@ -2,7 +2,7 @@ Scalaskel stories
 
 Meta:
 @refs skalaskel1
-@progress wip
+@progress done
 
 Narrative:
 Given my server is ready

@@ -3,6 +3,7 @@ package org.diveintojee.codestory.steps;
 import com.google.common.collect.ImmutableMap;
 import com.sun.jersey.api.client.ClientResponse;
 import org.diveintojee.codestory2013.QuestionsResource;
+import org.diveintojee.codestory2013.ScalaskelResource;
 import org.hamcrest.Matchers;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Pending;
@@ -11,6 +12,7 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.jbehave.core.model.OutcomesTable;
 
+import javax.ws.rs.POST;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import java.util.List;
@@ -27,7 +29,7 @@ public class ScalaskelSteps extends BackendBaseSteps {
     public void getChange(@Named("id") String id) {
         this.exchange.getRequest().setType("*/*");
         this.exchange.getRequest().setRequestedType(MediaType.APPLICATION_JSON);
-        final String uri = UriBuilder.fromResource(QuestionsResource.class).path(id) .build().toString();
+        final String uri = UriBuilder.fromResource(ScalaskelResource.class).path("/enonce").path(id) .build().toString();
         this.exchange.getRequest().setUri(uri);
         this.exchange.sendGetRequest();
     }
