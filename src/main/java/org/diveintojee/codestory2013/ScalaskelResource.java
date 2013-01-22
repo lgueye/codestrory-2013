@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author louis.gueye@gmail.com
@@ -23,8 +24,8 @@ public class ScalaskelResource {
     @GET
     public Response getChange(@PathParam("id") String id) {
         final Response.ResponseBuilder ok = Response.ok();
-        List<String> change = scalaskelService.getChange(id);
-        ok.entity(change);
+        Map<Integer, List<Map<String,Integer>>> result = scalaskelService.getChange(Integer.valueOf(id));
+        ok.entity(result);
         return ok.build();
     }
 }
