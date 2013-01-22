@@ -51,7 +51,7 @@
         <jbehave.embeddables>**/*Story.java</jbehave.embeddables>
         <jbehave.skip>false</jbehave.skip>
         <jbehave.threads>1</jbehave.threads>
-        <jbehave.storyTimeoutInSecs>3</jbehave.storyTimeoutInSecs>
+        <jbehave.storyTimeoutInSecs>10</jbehave.storyTimeoutInSecs>
         <jbehave.ignoreFailureInStories>false</jbehave.ignoreFailureInStories>
         <jbehave.meta.filters>+progress done</jbehave.meta.filters>
         <jbehave.version>4.0-beta-3</jbehave.version>
