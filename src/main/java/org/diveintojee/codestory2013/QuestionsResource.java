@@ -3,11 +3,10 @@ package org.diveintojee.codestory2013;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.regex.Pattern;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.regex.Pattern;
 
 /**
  * @author louis.gueye@gmail.com
@@ -28,7 +27,7 @@ public class QuestionsResource {
     public Response readQuestion(@QueryParam("q") String q) {
         final Response.ResponseBuilder ok = Response.ok();
         String response = isACalculation(q) ?
-                          calculatorService.getAnswer(q) : responsesRepository.getAnswer(q);
+                calculatorService.getAnswer(q) : responsesRepository.getAnswer(q);
         if (response != null) {
             ok.entity(response);
         }
@@ -36,7 +35,13 @@ public class QuestionsResource {
     }
 
     boolean isACalculation(String question) {
-        return Pattern.matches("\\d+[\\+/\\*\\-]\\d+", question);
+        String regex = "\\d+[\\" +
+                Operator.plus +
+                Operator.divide + "\\" +
+                Operator.multiply + "\\" +
+                Operator.minus + "]\\d+";
+        
+        return Pattern.matches(regex, question);
     }
 
 }

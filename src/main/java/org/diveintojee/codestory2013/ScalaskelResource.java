@@ -1,20 +1,17 @@
 package org.diveintojee.codestory2013;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import static org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_NULL_PROPERTIES;
 
 /**
  * @author louis.gueye@gmail.com

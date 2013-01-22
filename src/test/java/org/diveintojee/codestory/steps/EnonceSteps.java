@@ -4,12 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.sun.jersey.api.client.ClientResponse;
 import org.apache.commons.codec.EncoderException;
 import org.diveintojee.codestory2013.EnonceResource;
-import org.hamcrest.Matchers;
 import org.jbehave.core.annotations.Named;
-import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import org.jbehave.core.model.ExamplesTable;
-import org.jbehave.core.model.OutcomesTable;
 
 import javax.ws.rs.core.UriBuilder;
 import java.util.Map;

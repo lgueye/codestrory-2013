@@ -18,7 +18,7 @@ public class ScalaskelServiceTest {
     private ScalaskelService underTest;
 
     @Before
-    public void before () {
+    public void before() {
         underTest = new ScalaskelService();
     }
 

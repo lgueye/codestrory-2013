@@ -3,8 +3,6 @@ package org.diveintojee.codestory2013;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.stereotype.Component;
 
-import java.util.regex.Pattern;
-
 /**
  * @author louis.gueye@gmail.com
  */

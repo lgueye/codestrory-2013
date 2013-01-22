@@ -51,7 +51,7 @@ Then the response should be:
 | 200  | OUI                           | text/plain   |
 
 Scenario: the server should answer to the new question
-When the server is asked the question "1+1"
+When the server is asked the question "1 1"
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | 2                             | text/plain   |
