@@ -5,6 +5,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.apache.commons.codec.EncoderException;
 import org.diveintojee.codestory2013.QuestionsResource;
 import org.hamcrest.Matchers;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -25,6 +26,7 @@ public class QuestionsSteps extends BackendBaseSteps {
     }
 
     @When("the server is asked the question \"$question\"")
+    @Alias("the server is asked for the calculation \"$question\"")
     public void askQuestion(@Named("question") String question) throws EncoderException {
         this.exchange.getRequest().setType("*/*");
         this.exchange.getRequest().setRequestedType(MediaType.TEXT_PLAIN);
