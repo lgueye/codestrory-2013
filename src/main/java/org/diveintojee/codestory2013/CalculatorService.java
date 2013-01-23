@@ -1,84 +1,89 @@
 package org.diveintojee.codestory2013;
 
+import com.google.common.base.CharMatcher;
+
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
- * User: lgueye Date: 22/01/13 Time: 17:49
+ * ;Calculator Service Grammar expressed in EBNF
+ * sum            := factor (sumOperator factor)*;
+ * factor         := expression (factorOperator expression)*;
+ * expression     := literal | lparen sum rparen;
+ * sumOperator    :== ('+'|'-');
+ * factorOperator :== ('*'|'/');
+ * literal        :== ('1'..'9')+;
+ * lparen         :== '(';
+ * rparen         :== ')';
+ *
+ * @author louis.gueye@gmail.com
  */
 @Component
 public class CalculatorService {
 
-    public String getAnswer(String q) {
-
-        List<String> matchList = new ArrayList<String>();
-
-        Pattern regex = Pattern.compile("\\((.*?)\\)(.*)");
-        Matcher regexMatcher = regex.matcher(q);
-        while (regexMatcher.find()) {
-            matchList.add(regexMatcher.group());
-        }
-        System.out.println("matchList = " + matchList);
-
-        Operator operator = resolveOperator(q);
-        int[] operandes = resolveOperandes(operator, q);
-        switch (operator) {
-            case plus:
-                return String.valueOf(operandes[0] + operandes[1]);
-            case multiply:
-                return String.valueOf(operandes[0] * operandes[1]);
-            case divide:
-                return String.valueOf(operandes[0] / operandes[1]);
-            case minus:
-                return String.valueOf(operandes[0] - operandes[1]);
-        }
-        return "";
+  public int getAnswer(String q) {
+    Parser parser = new Parser(q);
+    int result = evaluateSum(parser);
+    if (!parser.end()) {
+      throw new IllegalArgumentException("Unexpected trailing chars");
     }
+    return result;
+  }
 
-    private int[] resolveOperandes(Operator operator, String q) {
-        String[] operandes = q.split("\\" + operator.toString());
-        int[] operandesAsInt = new int[operandes.length];
-        for (int i = 0; i < operandes.length; i++) {
-            String operande = operandes[i];
-            operandesAsInt[i] = Integer.valueOf(operande);
-        }
-        return operandesAsInt;
+  private int evaluateSum(Parser parser) {
+    int left = evaluateFactor(parser);
+    while (matchesSumOperator(parser)) {
+      char operator = parser.next();
+      int right = evaluateFactor(parser);
+      if (operator == Operator.plus.getSymbol()) {
+        left = left + right;
+      } else {
+        left = left - right;
+      }
     }
+    return left;
+  }
 
-    private Operator resolveOperator(String q) {
-        if (matchesSubtractOperation(q)) {
-            return Operator.minus;
-        } else if (matchesAddOperation(q)) {
-            return Operator.plus;
-        } else if (matchesDivideOperation(q)) {
-            return Operator.divide;
-        } else if (matchesMultiplyOperation(q)) {
-            return Operator.multiply;
-        } else {
-            throw new UnsupportedOperationException("Unknown operator in question " + q);
-        }
+  private boolean matchesSumOperator(Parser parser) {
+    return CharMatcher.anyOf(Operator.plus.toString() + Operator.minus.toString()).matches(parser.lookNext());
+  }
 
+  private int evaluateFactor(Parser parser) {
+    int left = evaluateExpression(parser);
+    while (matchesFactorOperator(parser)) {
+      char operator = parser.next();
+      int right = evaluateExpression(parser);
+      if (operator == Operator.multiply.getSymbol()) {
+        left = left * right;
+      } else {
+        left = left / right;
+      }
     }
+    return left;
+  }
 
-    boolean matchesMultiplyOperation(String q) {
-        return q.matches("\\d+[\\*]\\d+");
+  private boolean matchesFactorOperator(Parser parser) {
+    return CharMatcher.anyOf(Operator.multiply.toString() + Operator.divide.toString()).matches(parser.lookNext());
+  }
+
+  private int evaluateExpression(Parser parser) {
+    final char nextChar = parser.lookNext();
+    if (CharMatcher.DIGIT.matches(nextChar)) {
+      return parseLiteral(parser);
+    } else if ('(' == nextChar) {
+      parser.next();
+      int result = evaluateSum(parser);
+      char next = parser.next();
+      if (next != ')') {
+        throw new IllegalArgumentException("Unexpected token: " + next + ". Expected: ')'");
+      }
+      return result;
+    } else {
+      throw new IllegalArgumentException("Unexpected token: " + nextChar);
     }
+  }
 
-    boolean matchesDivideOperation(String q) {
-        return q.matches("\\d+[/]\\d+");
-    }
-
-    boolean matchesAddOperation(String q) {
-        return q.matches("\\d+[\\s]\\d+");
-    }
-
-    boolean matchesSubtractOperation(String q) {
-        return q.matches("\\d+[\\-]\\d+");
-    }
-
+  private int parseLiteral(Parser input) {
+    return Integer.parseInt(input.read(CharMatcher.DIGIT));
+  }
 
 }

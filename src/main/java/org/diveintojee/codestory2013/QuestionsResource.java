@@ -27,7 +27,7 @@ public class QuestionsResource {
     public Response readQuestion(@QueryParam("q") String q) {
         final Response.ResponseBuilder ok = Response.ok();
         String response = isACalculation(q) ?
-                calculatorService.getAnswer(q) : responsesRepository.getAnswer(q);
+                String.valueOf(calculatorService.getAnswer(q)) : responsesRepository.getAnswer(q);
         if (response != null) {
             ok.entity(response);
         }
