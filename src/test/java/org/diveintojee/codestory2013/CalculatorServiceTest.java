@@ -89,4 +89,10 @@ public class CalculatorServiceTest {
         assertFalse(underTest.matchesAddOperation(q));
     }
 
+    @Test
+    public void getAnswerShoudHandleParenthesis() {
+        String q = "(3*2)+1";
+        assertEquals("7", underTest.getAnswer(q));
+    }
+
 }

@@ -2,6 +2,11 @@ package org.diveintojee.codestory2013;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * User: lgueye Date: 22/01/13 Time: 17:49
  */
@@ -9,6 +14,16 @@ import org.springframework.stereotype.Component;
 public class CalculatorService {
 
     public String getAnswer(String q) {
+
+        List<String> matchList = new ArrayList<String>();
+
+        Pattern regex = Pattern.compile("\\((.*?)\\)(.*)");
+        Matcher regexMatcher = regex.matcher(q);
+        while (regexMatcher.find()) {
+            matchList.add(regexMatcher.group());
+        }
+        System.out.println("matchList = " + matchList);
+
         Operator operator = resolveOperator(q);
         int[] operandes = resolveOperandes(operator, q);
         switch (operator) {

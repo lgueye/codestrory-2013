@@ -40,7 +40,7 @@ public class QuestionsResource {
                 Operator.divide + "\\" +
                 Operator.multiply + "\\" +
                 Operator.minus + "]\\d+";
-        
+
         return Pattern.matches(regex, question);
     }
 
