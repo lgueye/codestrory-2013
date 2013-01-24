@@ -73,3 +73,9 @@ When the server is asked the question "5-4"
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | 1                             | text/plain   |
+
+Scenario: the server should answer to the new question
+When the server is asked the question "(1 2)*2"
+Then the response should be:
+| code | body                          | requiredType |
+| 200  | 6                             | text/plain   |

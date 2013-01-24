@@ -35,12 +35,8 @@ public class QuestionsResource {
     }
 
     boolean isACalculation(String question) {
-        String regex = "\\d+[\\" +
-                Operator.plus +
-                Operator.divide + "\\" +
-                Operator.multiply + "\\" +
-                Operator.minus + "]\\d+";
-
+        final String operators = "[\\s\\-/\\*]";
+        String regex = ".*\\d+" + operators + "\\d+.*|.*\\(\\d+.*|.*\\d+\\).*";
         return Pattern.matches(regex, question);
     }
 
