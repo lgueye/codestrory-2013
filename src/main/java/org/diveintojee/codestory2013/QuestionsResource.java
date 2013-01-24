@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -22,6 +24,8 @@ public class QuestionsResource {
 
     @Autowired
     private CalculatorService calculatorService;
+
+    public static final NumberFormat NUMBER_FORMATTER = DecimalFormat.getInstance(Locale.FRANCE);
 
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
@@ -42,8 +46,8 @@ public class QuestionsResource {
         return Pattern.matches(regex, question);
     }
 
-    String frenchFormat(double result) {
-      return CalculatorService.NUMBER_FORMATTER.format(result);
+    String frenchFormat(BigDecimal result) {
+        return NUMBER_FORMATTER.format(result);
     }
 
 }

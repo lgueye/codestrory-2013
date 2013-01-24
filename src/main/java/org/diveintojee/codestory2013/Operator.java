@@ -13,10 +13,10 @@ public enum Operator {
     }
 
     public Character getSymbol() {
-      return symbol;
+        return symbol;
     }
 
-  public String toString() {
+    public String toString() {
         return String.valueOf(this.symbol);
     }
 

@@ -86,8 +86,8 @@ Then the response should be:
 | code | body                          | requiredType |
 | 200  | 1,5                           | text/plain   |
 
-Scenario: the parser should handle french double format input
-When the server is asked the question "1,5*4"
+Scenario: the parser should handle big precision
+When the server is asked the question "((1,1 2) 3,14 4 (5 6 7) (8 9 10)*4267387833344334647677634)/2*553344300034334349999000"
 Then the response should be:
-| code | body                          | requiredType |
-| 200  | 6                             | text/plain   |
+| code | body                                                               | requiredType |
+| 200  | 31 878 018 903 828 899 277 492 024 491 376 690 701 584 023 926 880 | text/plain   |

@@ -7,36 +7,36 @@ import com.google.common.base.CharMatcher;
  */
 public class Parser {
 
-  int pos;
-  String input;
+    int pos;
+    String input;
 
-  Parser(String input) {
-    pos = 0;
-    this.input = input;
-  }
-
-  char lookNext() {
-    if (input.length() <= pos) {
-      return '\n';
+    Parser(String input) {
+        pos = 0;
+        this.input = input;
     }
-    return input.charAt(pos);
-  }
 
-  char next() {
-    char c = lookNext();
-    pos++;
-    return c;
-  }
-
-  boolean end() {
-    return lookNext() == '\n';
-  }
-
-  String read(CharMatcher matcher) {
-    StringBuilder sb = new StringBuilder();
-    while (matcher.matches(lookNext())) {
-      sb.append(next());
+    char lookNext() {
+        if (input.length() <= pos) {
+            return '\n';
+        }
+        return input.charAt(pos);
     }
-    return sb.toString();
-  }
+
+    char next() {
+        char c = lookNext();
+        pos++;
+        return c;
+    }
+
+    boolean end() {
+        return lookNext() == '\n';
+    }
+
+    String read(CharMatcher matcher) {
+        StringBuilder sb = new StringBuilder();
+        while (matcher.matches(lookNext())) {
+            sb.append(next());
+        }
+        return sb.toString();
+    }
 }
