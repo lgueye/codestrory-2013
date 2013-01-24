@@ -20,20 +20,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class CalculatorService {
 
-  public int getAnswer(String q) {
+  public double getAnswer(String q) {
     Parser parser = new Parser(q);
-    int result = evaluateSum(parser);
+    double result = evaluateSum(parser);
     if (!parser.end()) {
-      throw new IllegalArgumentException("Unexpected trailing chars");
+      throw new IllegalArgumentException("Unexpected trailing chars, got " + parser.lookNext());
     }
     return result;
   }
 
-  private int evaluateSum(Parser parser) {
-    int left = evaluateFactor(parser);
+  private double evaluateSum(Parser parser) {
+    double left = evaluateFactor(parser);
     while (matchesSumOperator(parser)) {
       char operator = parser.next();
-      int right = evaluateFactor(parser);
+      double right = evaluateFactor(parser);
       if (operator == Operator.plus.getSymbol()) {
         left = left + right;
       } else {
@@ -47,11 +47,11 @@ public class CalculatorService {
     return CharMatcher.anyOf(Operator.plus.toString() + Operator.minus.toString()).matches(parser.lookNext());
   }
 
-  private int evaluateFactor(Parser parser) {
-    int left = evaluateExpression(parser);
+  private double evaluateFactor(Parser parser) {
+    double left = evaluateExpression(parser);
     while (matchesFactorOperator(parser)) {
       char operator = parser.next();
-      int right = evaluateExpression(parser);
+      double right = evaluateExpression(parser);
       if (operator == Operator.multiply.getSymbol()) {
         left = left * right;
       } else {
@@ -65,13 +65,13 @@ public class CalculatorService {
     return CharMatcher.anyOf(Operator.multiply.toString() + Operator.divide.toString()).matches(parser.lookNext());
   }
 
-  private int evaluateExpression(Parser parser) {
+  private double evaluateExpression(Parser parser) {
     final char nextChar = parser.lookNext();
     if (CharMatcher.DIGIT.matches(nextChar)) {
       return parseLiteral(parser);
     } else if ('(' == nextChar) {
       parser.next();
-      int result = evaluateSum(parser);
+      double result = evaluateSum(parser);
       char next = parser.next();
       if (next != ')') {
         throw new IllegalArgumentException("Unexpected token: " + next + ". Expected: ')'");
@@ -82,7 +82,7 @@ public class CalculatorService {
     }
   }
 
-  private int parseLiteral(Parser input) {
+  private double parseLiteral(Parser input) {
     return Integer.parseInt(input.read(CharMatcher.DIGIT));
   }
 

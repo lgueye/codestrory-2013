@@ -31,6 +31,4 @@ public class QuestionsResourceTest {
     assertFalse(underTest.isACalculation("Ceci est un texte comprenant (incluant) des parenthèses"));
   }
 
-
-
 }
