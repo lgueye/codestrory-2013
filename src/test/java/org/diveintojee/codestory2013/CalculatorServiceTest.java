@@ -60,9 +60,16 @@ public class CalculatorServiceTest {
   }
 
   @Test
-  public void getAnswerShoudHandleDoubles() {
+  public void getAnswerShoudHandleDoublesOutput() {
       String q = "(1 2)/2";
       assertEquals(1.5, underTest.getAnswer(q) ,0);
   }
+
+  @Test
+  public void getAnswerShoudHandleDoublesInput() {
+      String q = "(1,5*4)/2";
+      assertEquals(3.0, underTest.getAnswer(q) ,0);
+  }
+
 
 }

@@ -50,38 +50,44 @@ Then the response should be:
 | code | body                          | requiredType |
 | 200  | OUI                           | text/plain   |
 
-Scenario: the server should answer to the new question
+Scenario: the server should handle plus operation
 When the server is asked the question "1 1"
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | 2                             | text/plain   |
 
-Scenario: the server should answer to the new question
+Scenario: the server handle muliply operation
 When the server is asked the question "3*2"
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | 6                             | text/plain   |
 
-Scenario: the server should answer to the new question
+Scenario: the server should handle divide operation
 When the server is asked the question "6/2"
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | 3                             | text/plain   |
 
-Scenario: the server should answer to the new question
+Scenario: the server should handle subtract operation
 When the server is asked the question "5-4"
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | 1                             | text/plain   |
 
-Scenario: the server should answer to the new question
+Scenario: the parser should handle complex expression with parenthesis
 When the server is asked the question "(1 2)*2"
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | 6                             | text/plain   |
 
-Scenario: the server should answer to the new question
+Scenario: the parser should generate french double format output
 When the server is asked the question "(1 2)/2"
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | 1,5                           | text/plain   |
+
+Scenario: the parser should handle french double format input
+When the server is asked the question "1,5*4"
+Then the response should be:
+| code | body                          | requiredType |
+| 200  | 6                             | text/plain   |

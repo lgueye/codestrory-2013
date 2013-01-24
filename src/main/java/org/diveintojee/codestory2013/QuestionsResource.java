@@ -23,8 +23,6 @@ public class QuestionsResource {
     @Autowired
     private CalculatorService calculatorService;
 
-    private NumberFormat frenchNumberFormatter = NumberFormat.getInstance(java.util.Locale.FRENCH);
-
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     @GET
@@ -45,7 +43,7 @@ public class QuestionsResource {
     }
 
     String frenchFormat(double result) {
-      return frenchNumberFormatter.format(result);
+      return CalculatorService.NUMBER_FORMATTER.format(result);
     }
 
 }

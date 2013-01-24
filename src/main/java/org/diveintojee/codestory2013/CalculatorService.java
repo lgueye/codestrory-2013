@@ -4,6 +4,10 @@ import com.google.common.base.CharMatcher;
 
 import org.springframework.stereotype.Component;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 /**
  * ;Calculator Service Grammar expressed in EBNF
  * sum            := factor (sumOperator factor)*;
@@ -19,6 +23,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CalculatorService {
+
+
+  public static final NumberFormat NUMBER_FORMATTER = NumberFormat.getInstance(Locale.FRANCE);
+
 
   public double getAnswer(String q) {
     Parser parser = new Parser(q);
@@ -82,8 +90,15 @@ public class CalculatorService {
     }
   }
 
-  private double parseLiteral(Parser input) {
-    return Integer.parseInt(input.read(CharMatcher.DIGIT));
+  private double parseLiteral(Parser parser) {
+    final String legalChars = "0123456789,";
+    final String literalAsString = parser.read(CharMatcher.anyOf(legalChars));
+    try {
+      return NUMBER_FORMATTER.parse(literalAsString).doubleValue();
+    } catch (ParseException e) {
+      final String message = "Parse failed for input [" + literalAsString + "]. Legal chars are [" + legalChars + "]";
+      throw new IllegalArgumentException(message);
+    }
   }
 
 }
