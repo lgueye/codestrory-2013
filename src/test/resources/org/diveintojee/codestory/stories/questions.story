@@ -54,28 +54,34 @@ Scenario: the server should answer to the new question
 When the server is asked the question "1 1"
 Then the response should be:
 | code | body                          | requiredType |
-| 200  | 2                             | text/plain   |
+| 200  | 2.0                           | text/plain   |
 
 Scenario: the server should answer to the new question
 When the server is asked the question "3*2"
 Then the response should be:
 | code | body                          | requiredType |
-| 200  | 6                             | text/plain   |
+| 200  | 6.0                           | text/plain   |
 
 Scenario: the server should answer to the new question
 When the server is asked the question "6/2"
 Then the response should be:
 | code | body                          | requiredType |
-| 200  | 3                             | text/plain   |
+| 200  | 3.0                           | text/plain   |
 
 Scenario: the server should answer to the new question
 When the server is asked the question "5-4"
 Then the response should be:
 | code | body                          | requiredType |
-| 200  | 1                             | text/plain   |
+| 200  | 1.0                           | text/plain   |
 
 Scenario: the server should answer to the new question
 When the server is asked the question "(1 2)*2"
 Then the response should be:
 | code | body                          | requiredType |
-| 200  | 6                             | text/plain   |
+| 200  | 6.0                           | text/plain   |
+
+Scenario: the server should answer to the new question
+When the server is asked the question "(1 2)/2"
+Then the response should be:
+| code | body                          | requiredType |
+| 200  | 1.5                           | text/plain   |
