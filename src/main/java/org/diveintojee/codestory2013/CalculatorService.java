@@ -34,6 +34,7 @@ public class CalculatorService {
     if (!parser.end()) {
       throw new IllegalArgumentException("Unexpected trailing chars, got " + parser.lookNext());
     }
+    System.out.println("evaluated answer = " + result);
     return result;
   }
 
@@ -48,6 +49,7 @@ public class CalculatorService {
         left = left - right;
       }
     }
+    System.out.println("evaluated sum = " + left);
     return left;
   }
 
@@ -66,6 +68,7 @@ public class CalculatorService {
         left = left / right;
       }
     }
+    System.out.println("evaluated factor = " + left);
     return left;
   }
 
@@ -76,7 +79,9 @@ public class CalculatorService {
   private double evaluateExpression(Parser parser) {
     final char nextChar = parser.lookNext();
     if (CharMatcher.DIGIT.matches(nextChar)) {
-      return parseLiteral(parser);
+      final double v = parseLiteral(parser);
+      System.out.println("parsed literal = " + v);
+      return v;
     } else if ('(' == nextChar) {
       parser.next();
       double result = evaluateSum(parser);
@@ -84,6 +89,7 @@ public class CalculatorService {
       if (next != ')') {
         throw new IllegalArgumentException("Unexpected token: " + next + ". Expected: ')'");
       }
+      System.out.println("evaluated expression = " + result);
       return result;
     } else {
       throw new IllegalArgumentException("Unexpected token: " + nextChar);
