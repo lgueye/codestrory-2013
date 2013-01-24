@@ -19,10 +19,10 @@ public class ScalaskelService {
         Map<Integer, List<Map<String, Integer>>> collecter = Maps.newHashMap();
 
         for (int foo = 0; foo <= 100; foo++)
-            for (int bar = 0; bar <= 100; bar++)
-                for (int qix = 0; qix <= 100; qix++)
-                    for (int baz = 0; baz <= 100; baz++) {
-                        if (foo * 1 + bar * 7 + qix * 11 + baz * 21 == id) {
+            for (int bar = 0; bar <= 14; bar++)
+                for (int qix = 0; qix <= 9; qix++)
+                    for (int baz = 0; baz <= 4; baz++) {
+                        if (foo + bar * 7 + qix * 11 + baz * 21 == id) {
                             if (collecter.get(id) == null) {
                                 collecter.put(id,
                                         Lists.<Map<String, Integer>>newArrayList());

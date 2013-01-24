@@ -3,6 +3,7 @@ package org.diveintojee.codestory2013;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +29,14 @@ public class QuestionsResourceTest {
   @Test
   public void isACalculationShouldFail() throws Exception {
     assertFalse(underTest.isACalculation("( je suis ton père )"));
-    assertFalse(underTest.isACalculation("Ceci est un texte comprenant (incluant) des parenthèses"));
+    assertFalse(
+        underTest.isACalculation("Ceci est un texte comprenant (incluant) des parenthèses"));
+  }
+
+  @Test
+  public void frenchFormatShouldSucceed() throws Exception {
+    double result = 3.5;
+    assertEquals("3,5", underTest.frenchFormat(result));
   }
 
 }

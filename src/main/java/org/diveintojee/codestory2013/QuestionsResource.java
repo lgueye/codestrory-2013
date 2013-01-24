@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import java.text.NumberFormat;
 import java.util.regex.Pattern;
 
 /**
@@ -21,13 +23,15 @@ public class QuestionsResource {
     @Autowired
     private CalculatorService calculatorService;
 
+    private NumberFormat frenchNumberFormatter = NumberFormat.getInstance(java.util.Locale.FRENCH);
+
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     @GET
     public Response readQuestion(@QueryParam("q") String q) {
         final Response.ResponseBuilder ok = Response.ok();
         String response = isACalculation(q) ?
-                String.valueOf(calculatorService.getAnswer(q)) : responsesRepository.getAnswer(q);
+                frenchFormat(calculatorService.getAnswer(q)) : responsesRepository.getAnswer(q);
         if (response != null) {
             ok.entity(response);
         }
@@ -38,6 +42,10 @@ public class QuestionsResource {
         final String operators = "[\\s\\-/\\*]";
         String regex = ".*\\d+" + operators + "\\d+.*|.*\\(\\d+.*|.*\\d+\\).*";
         return Pattern.matches(regex, question);
+    }
+
+    String frenchFormat(double result) {
+      return frenchNumberFormatter.format(result);
     }
 
 }
