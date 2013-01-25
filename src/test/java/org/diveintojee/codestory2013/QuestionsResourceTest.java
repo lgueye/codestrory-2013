@@ -39,4 +39,10 @@ public class QuestionsResourceTest {
         assertEquals("31878018903828899277492024491376690701584023926880,7", underTest.frenchFormat(result));
     }
 
+    @Test
+    public void frenchFormatShouldStripTrailingZeros() throws Exception {
+        BigDecimal result = new BigDecimal("31878018903828899277492024491376690701584023926880.00");
+        assertEquals("31878018903828899277492024491376690701584023926880", underTest.frenchFormat(result));
+    }
+
 }
