@@ -18,4 +18,12 @@ public class ParserTest {
         assertEquals("1.5", parser.read(matcher));
     }
 
+    @Test
+    public void readShoudHandleSignedLiterals() {
+        String q = "-1";
+        CharMatcher matcher = CharMatcher.anyOf("0123456789,-");
+        Parser parser = new Parser(q);
+        assertEquals("-1", parser.read(matcher));
+    }
+
 }

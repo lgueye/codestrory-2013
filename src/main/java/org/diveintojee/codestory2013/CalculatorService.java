@@ -71,7 +71,7 @@ public class CalculatorService {
 
     private BigDecimal evaluateExpression(Parser parser) {
         final char nextChar = parser.lookNext();
-        if (CharMatcher.DIGIT.matches(nextChar)) {
+        if (CharMatcher.DIGIT.or(CharMatcher.is('-')).matches(nextChar)) {
             final BigDecimal v = parseLiteral(parser);
 //            System.out.println("parsed literal = " + v);
             return v;
@@ -91,13 +91,15 @@ public class CalculatorService {
 
     private BigDecimal parseLiteral(Parser parser) {
         final String legalChars = "0123456789,";
-        final String literalAsString = parser.read(CharMatcher.anyOf(legalChars));
-        try {
-            return new BigDecimal(literalAsString.replaceAll(",", "."));
-        } catch (Exception e) {
-            final String message = "Parse failed for input [" + literalAsString + "]. Legal chars are [" + legalChars + "]";
-            throw new IllegalArgumentException(message);
+        final char nextChar = parser.lookNext();
+        boolean shouldNegate = false;
+        if ('-' == nextChar) {
+          shouldNegate = true;
+          parser.next();
         }
+        final String literalAsString = parser.read(CharMatcher.anyOf(legalChars));
+        BigDecimal literal = new BigDecimal(literalAsString.replaceAll(",", "."));
+        return shouldNegate? literal.negate():literal;
     }
 
 }

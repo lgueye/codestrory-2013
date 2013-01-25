@@ -77,4 +77,10 @@ public class CalculatorServiceTest {
         assertEquals("31878018903828899277492024491376690701584023926880.00", underTest.getAnswer(q).toString());
     }
 
+    @Test
+    public void getAnswerShoudHandleNegativeValues() {
+        String q = "(-1) (1)";
+        assertEquals("0", underTest.getAnswer(q).toString());
+    }
+
 }

@@ -91,3 +91,9 @@ When the server is asked the question "((1,1 2) 3,14 4 (5 6 7) (8 9 10)*42673878
 Then the response should be:
 | code | body                                               | requiredType |
 | 200  | 31878018903828899277492024491376690701584023926880 | text/plain   |
+
+Scenario: the parser should handle negative values
+When the server is asked the question "(-1) (1)"
+Then the response should be:
+| code | body | requiredType |
+| 200  | 0    | text/plain   |
