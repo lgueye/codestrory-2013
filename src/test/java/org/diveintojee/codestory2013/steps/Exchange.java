@@ -1,4 +1,4 @@
-package org.diveintojee.codestory.steps;
+package org.diveintojee.codestory2013.steps;
 
 import com.google.common.base.Strings;
 import com.sun.jersey.api.client.Client;

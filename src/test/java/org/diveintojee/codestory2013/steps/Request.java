@@ -1,4 +1,4 @@
-package org.diveintojee.codestory.steps;
+package org.diveintojee.codestory2013.steps;
 
 import javax.ws.rs.core.MediaType;
 import java.util.Locale;
