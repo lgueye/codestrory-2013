@@ -47,7 +47,7 @@ public class QuestionsResource {
     }
 
     String frenchFormat(BigDecimal result) {
-        return result.toString().replaceAll("\\.", ",");
+        return result.stripTrailingZeros().toPlainString().replaceAll("\\.", ",");
     }
 
 }
