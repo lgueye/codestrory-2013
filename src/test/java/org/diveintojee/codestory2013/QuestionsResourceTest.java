@@ -36,7 +36,7 @@ public class QuestionsResourceTest {
     @Test
     public void frenchFormatShouldSucceed() throws Exception {
         BigDecimal result = new BigDecimal("31878018903828899277492024491376690701584023926880.7");
-        assertEquals("31 878 018 903 828 899 277 492 024 491 376 690 701 584 023 926 880,7", underTest.frenchFormat(result));
+        assertEquals("31878018903828899277492024491376690701584023926880,7", underTest.frenchFormat(result));
     }
 
 }
