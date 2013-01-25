@@ -25,8 +25,6 @@ public class QuestionsResource {
     @Autowired
     private CalculatorService calculatorService;
 
-    public static final NumberFormat NUMBER_FORMATTER = DecimalFormat.getInstance(Locale.FRANCE);
-
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     @GET
