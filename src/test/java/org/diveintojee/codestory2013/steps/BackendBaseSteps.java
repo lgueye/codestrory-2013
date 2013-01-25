@@ -1,4 +1,4 @@
-package org.diveintojee.codestory.steps;
+package org.diveintojee.codestory2013.steps;
 
 import com.sun.jersey.api.client.ClientResponse;
 import org.hamcrest.Matchers;

@@ -97,3 +97,9 @@ When the server is asked the question "(-1) (1)"
 Then the response should be:
 | code | body | requiredType |
 | 200  | 0    | text/plain   |
+
+Scenario: the server should answer to the question about the bug
+When the server is asked the question "As tu passe une bonne nuit malgre les bugs de l etape precedente(PAS_TOP/BOF/QUELS_BUGS)"
+Then the response should be:
+| code | body                          | requiredType |
+| 200  | QUELS_BUGS                    | text/plain   |

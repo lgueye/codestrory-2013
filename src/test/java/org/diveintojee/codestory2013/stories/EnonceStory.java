@@ -1,10 +1,10 @@
 /**
  *
  */
-package org.diveintojee.codestory.stories;
+package org.diveintojee.codestory2013.stories;
 
-import org.diveintojee.codestory.steps.EnonceSteps;
-import org.diveintojee.codestory.steps.Exchange;
+import org.diveintojee.codestory2013.steps.EnonceSteps;
+import org.diveintojee.codestory2013.steps.Exchange;
 import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.steps.InjectableStepsFactory;
