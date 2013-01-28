@@ -1,6 +1,7 @@
 package org.diveintojee.codestory2013.steps;
 
 import com.sun.jersey.api.client.ClientResponse;
+
 import org.hamcrest.Matchers;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Named;
@@ -28,11 +29,6 @@ public abstract class BackendBaseSteps {
     @Then("the response code should be \"$statusCode\"")
     public void expectStatusCode(@Named("statusCode") final int statusCode) {
         this.exchange.assertExpectedStatus(statusCode);
-    }
-
-    @Given("I accept \"<responseLanguage>\" language")
-    public void setAcceptLanguage(@Named("responseLanguage") final String requestedLanguage) {
-        this.exchange.getRequest().setRequestedLanguage(requestedLanguage);
     }
 
     @Given("I accept \"<responseContentType>\" format")

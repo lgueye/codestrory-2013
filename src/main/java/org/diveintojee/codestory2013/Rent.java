@@ -2,6 +2,7 @@ package org.diveintojee.codestory2013;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.io.Serializable;
 
@@ -11,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author louis.gueye@gmail.com
  */
 @XmlRootElement
-public class Rent implements Serializable {
+public class Rent implements Serializable, Comparable<Rent>{
 
   private String name;
   private Integer start;
@@ -106,7 +107,13 @@ public class Rent implements Serializable {
         toString();
   }
 
+  @JsonIgnore
   public Integer getEnd() {
     return this.start+this.duration;
+  }
+
+  @Override
+  public int compareTo(Rent o) {
+    return this.start-o.start;
   }
 }

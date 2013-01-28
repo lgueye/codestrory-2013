@@ -1,9 +1,13 @@
 package org.diveintojee.codestory2013;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -27,7 +31,14 @@ public class JajascriptResource {
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/optimize")
   public Response optimizePayload(Rent[] rents) {
-    JajascriptOptimization solution = jajascriptService.optimize(Lists.newArrayList(rents));
+    Plan solution = jajascriptService.optimize(Lists.newArrayList(rents));
+    Collection<String> transformed = Collections2.transform(solution.getRents(), new Function<Rent, String>() {
+      @Override
+      public String apply(Rent input) {
+        return input.getName();
+      }
+    });
+    solution.setPath(Lists.newArrayList(transformed));
     return Response.ok().entity(solution).build();
   }
 
