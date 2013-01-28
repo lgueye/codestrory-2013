@@ -103,3 +103,9 @@ When the server is asked the question "As tu passe une bonne nuit malgre les bug
 Then the response should be:
 | code | body                          | requiredType |
 | 200  | QUELS_BUGS                    | text/plain   |
+
+Scenario: the server should answer to the question about the second challenge
+When the server is asked the question "As tu bien recu le second enonce(OUI/NON)"
+Then the response should be:
+| code | body                          | requiredType |
+| 200  | OUI                           | text/plain   |
