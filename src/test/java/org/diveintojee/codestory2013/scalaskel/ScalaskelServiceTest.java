@@ -1,6 +1,7 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.scalaskel;
 
 import com.google.common.collect.Iterables;
+import org.diveintojee.codestory2013.scalaskel.ScalaskelService;
 import org.junit.Before;
 import org.junit.Test;
 

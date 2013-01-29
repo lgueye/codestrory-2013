@@ -1,4 +1,4 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.jajascript;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;

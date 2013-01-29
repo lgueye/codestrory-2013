@@ -1,6 +1,9 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.jajascript;
 
 import com.google.common.collect.Lists;
+import org.diveintojee.codestory2013.jajascript.JajascriptService;
+import org.diveintojee.codestory2013.jajascript.Plan;
+import org.diveintojee.codestory2013.jajascript.Rent;
 import org.junit.Before;
 import org.junit.Test;
 

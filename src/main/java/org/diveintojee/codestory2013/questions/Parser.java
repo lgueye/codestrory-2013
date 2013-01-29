@@ -1,4 +1,4 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.questions;
 
 import com.google.common.base.CharMatcher;
 

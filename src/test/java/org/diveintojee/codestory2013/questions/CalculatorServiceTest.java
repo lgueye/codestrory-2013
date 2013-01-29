@@ -1,5 +1,6 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.questions;
 
+import org.diveintojee.codestory2013.questions.CalculatorService;
 import org.junit.Before;
 import org.junit.Test;
 

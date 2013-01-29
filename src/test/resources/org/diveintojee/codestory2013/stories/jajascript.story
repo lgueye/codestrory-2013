@@ -16,8 +16,8 @@ When the server is asked the provided the payload:
 | LEGACY01 | 5      | 9     | 8    |
 | YAGNI17  | 5      | 9     | 7    |
 Then the response should be:
-| code | body                                           |
-| 200  | {"gain" : 18, "path" : ["MONAD42","LEGACY01"]} |
+| code | body                                      |
+| 200  | {"path":["MONAD42","LEGACY01"],"gain":18} |
 
 Scenario: the server should be able to provide the most optimized solution 2
 When the server is asked the provided the payload:

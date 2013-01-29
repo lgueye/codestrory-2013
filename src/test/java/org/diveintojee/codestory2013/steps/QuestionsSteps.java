@@ -3,7 +3,7 @@ package org.diveintojee.codestory2013.steps;
 import com.google.common.collect.ImmutableMap;
 import com.sun.jersey.api.client.ClientResponse;
 import org.apache.commons.codec.EncoderException;
-import org.diveintojee.codestory2013.QuestionsResource;
+import org.diveintojee.codestory2013.questions.QuestionsResource;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;

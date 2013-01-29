@@ -2,7 +2,7 @@ package org.diveintojee.codestory2013.steps;
 
 import com.google.common.collect.ImmutableMap;
 import com.sun.jersey.api.client.ClientResponse;
-import org.diveintojee.codestory2013.ScalaskelResource;
+import org.diveintojee.codestory2013.scalaskel.ScalaskelResource;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
 
