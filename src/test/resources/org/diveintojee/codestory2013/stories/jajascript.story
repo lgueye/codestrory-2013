@@ -1,12 +1,11 @@
-Scalaskel stories
+Jajascript stories
 
 Meta:
 @refs jajascript
-@progress wip
+@progress done
 
 Narrative:
-Given my server is ready
-When It's provided a payload
+When the server is provided a payload
 It should be able to provide the most optimized solution
 
 Scenario: the server should be able to provide the most optimized solution
@@ -16,7 +15,6 @@ When the server is asked the provided the payload:
 | META18   | 3      | 7     | 14   |
 | LEGACY01 | 5      | 9     | 8    |
 | YAGNI17  | 5      | 9     | 7    |
-
 Then the response should be:
 | code | body                                           |
 | 200  | {"gain" : 18, "path" : ["MONAD42","LEGACY01"]} |
@@ -70,5 +68,5 @@ When the server is asked the provided the payload:
 | doubtful-jawbone-8        | 43     | 6     | 10   |
 | repulsive-teacup-84       | 43     | 2     | 1    |
 Then the response should be:
-| code | body                                                                                                                                                                                               |
+| code | body |
 | 200  | {"path":["dark-playwright-49","long-alcohol-70","modern-lava-64","harsh-sword-34","stupid-reformer-69","puny-judo-34","blue-eyed-fishnet-70","homeless-warship-63","hushed-fencer-85"],"gain":145} |

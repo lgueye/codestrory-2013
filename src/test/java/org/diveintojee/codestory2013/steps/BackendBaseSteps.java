@@ -1,7 +1,6 @@
 package org.diveintojee.codestory2013.steps;
 
 import com.sun.jersey.api.client.ClientResponse;
-
 import org.hamcrest.Matchers;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Named;
@@ -12,7 +11,7 @@ import org.jbehave.core.model.OutcomesTable;
 import java.util.Map;
 
 /**
- * User: louis.gueye@gmail.com
+ * @author louis.gueye@gmail.com
  */
 public abstract class BackendBaseSteps {
 

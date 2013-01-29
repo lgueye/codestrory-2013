@@ -1,7 +1,7 @@
 package org.diveintojee.codestory2013;
 
 /**
- * User: lgueye Date: 22/01/13 Time: 17:53
+ * @author louis.gueye@gmail.com
  */
 public enum Operator {
     plus(' '), minus('-'), divide('/'), multiply('*');

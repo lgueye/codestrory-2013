@@ -1,15 +1,14 @@
 Scalaskel stories
 
 Meta:
-@refs skalaskel1
+@refs skalaskel
 @progress done
 
 Narrative:
-Given my server is ready
-When It's asked a scalaskel change
-It should be able to provide the correct change
+When the server is asked a scalaskel change
+It should provide the correct change
 
-Scenario: the server should be able to read the subject
+Scenario: the server should provide the correct change for value "1"
 When the server is asked the scalaskel change for value "1"
 Then the response should be:
 | code | body        |

@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * User: lgueye Date: 22/01/13 Time: 18:40
+ * @author louis.gueye@gmail.com
  */
 public class CalculatorServiceTest {
 

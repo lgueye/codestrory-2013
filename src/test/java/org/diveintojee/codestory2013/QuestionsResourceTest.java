@@ -5,10 +5,12 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 
 /**
- * User: lgueye Date: 24/01/13 Time: 11:29
+ * @author louis.gueye@gmail.com
  */
 public class QuestionsResourceTest {
 

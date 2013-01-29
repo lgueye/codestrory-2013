@@ -1,15 +1,10 @@
 package org.diveintojee.codestory2013;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,63 +12,63 @@ import java.util.List;
  */
 public class Plan implements Serializable {
 
-  private List<String> path = Lists.newArrayList();
+    private List<String> path = Lists.newArrayList();
 
-  private List<Rent> rents = Lists.newArrayList();
+    private List<Rent> rents = Lists.newArrayList();
 
-  public Plan(List<Rent> rents) {
-    this.rents = rents;
-  }
-
-  public Long getGain() {
-    long gain = 0;
-    for (Rent rent : rents) {
-      gain += rent.getPrice();
-    }
-    return gain;
-  }
-
-  public List<String> getPath() {
-    return path;
-  }
-
-  public void setPath(List<String> path) {
-    this.path = path;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof Plan)) {
-      return false;
+    public Plan(List<Rent> rents) {
+        this.rents = rents;
     }
 
-    Plan plan = (Plan) o;
-
-    if (!rents.equals(plan.rents)) {
-      return false;
+    public Long getGain() {
+        long gain = 0;
+        for (Rent rent : rents) {
+            gain += rent.getPrice();
+        }
+        return gain;
     }
 
-    return true;
-  }
+    public List<String> getPath() {
+        return path;
+    }
 
-  @Override
-  public int hashCode() {
-    return rents.hashCode();
-  }
+    public void setPath(List<String> path) {
+        this.path = path;
+    }
 
-  @Override
-  public String toString() {
-    return new ToStringBuilder(this).
-        append("gain", getGain()).
-        append("path", path).
-        toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Plan)) {
+            return false;
+        }
 
-  @JsonIgnore
-  public List<Rent> getRents() {
-    return rents;
-  }
+        Plan plan = (Plan) o;
+
+        if (!rents.equals(plan.rents)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return rents.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).
+                append("gain", getGain()).
+                append("path", path).
+                toString();
+    }
+
+    @JsonIgnore
+    public List<Rent> getRents() {
+        return rents;
+    }
 }

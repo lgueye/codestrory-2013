@@ -35,37 +35,5 @@ public class ScalaskelServiceTest {
         assertEquals(null, firstMatch.get("qix"));
         assertEquals(null, firstMatch.get("baz"));
     }
-//
-//    @Test
-//    public void getChangeShouldReturn6000For6() throws Exception {
-//        int amount = 6;
-//        Map<Integer, List<Combination>> result = underTest.getChange(amount);
-//        List<Combination> matches = result.get(amount);
-//        assertNotNull(matches);
-//        assertEquals(1, matches.size());
-//        Combination firstMatch = Iterables.getOnlyElement(matches);
-//        assertEquals(Integer.valueOf(6), firstMatch.getFoo());
-//        assertEquals(Integer.valueOf(0), firstMatch.getBar());
-//        assertEquals(Integer.valueOf(0), firstMatch.getQix());
-//        assertEquals(Integer.valueOf(0), firstMatch.getBaz());
-//    }
-//
-//    @Test
-//    public void getChangeShouldReturn7000Or0100For7() throws Exception {
-//        int amount = 7;
-//        Map<Integer, List<Combination>> result = underTest.getChange(amount);
-//        List<Combination> matches = result.get(amount);
-//        assertNotNull(matches);
-//        assertEquals(2, matches.size());
-//        Combination firstMatch = Iterables.getFirst(matches, null);
-//        assertEquals(Integer.valueOf(0), firstMatch.getFoo());
-//        assertEquals(Integer.valueOf(1), firstMatch.getBar());
-//        assertEquals(Integer.valueOf(0), firstMatch.getQix());
-//        assertEquals(Integer.valueOf(0), firstMatch.getBaz());
-//        Combination lastMatch = Iterables.getLast(matches, null);
-//        assertEquals(Integer.valueOf(7), lastMatch.getFoo());
-//        assertEquals(Integer.valueOf(0), lastMatch.getBar());
-//        assertEquals(Integer.valueOf(0), lastMatch.getQix());
-//        assertEquals(Integer.valueOf(0), lastMatch.getBaz());
-//    }
+
 }
