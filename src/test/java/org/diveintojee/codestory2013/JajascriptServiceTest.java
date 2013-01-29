@@ -32,7 +32,30 @@ public class JajascriptServiceTest {
     rents.add(c);
     final Rent d = new Rent("d", 5, 9, 7L);
     rents.add(d);
-    final Plan expected = new Plan(18L, Lists.newArrayList("a", "c"));
-    assertEquals(expected, underTest.optimize(rents));
+    final Plan plan = underTest.optimize(rents);
+    assertEquals(18L, (long) plan.getGain());
+    assertEquals(Lists.newArrayList(a, c), plan.getRents());
+  }
+
+  @Test
+  public void testOptimize2() throws Exception {
+    List<Rent> rents = Lists.newArrayList();
+    final Rent a = new Rent("a", 0, 2, 10L);
+    rents.add(a);
+    final Rent b = new Rent("b", 1, 2, 9L);
+    rents.add(b);
+    final Rent c = new Rent("c", 1, 3, 7L);
+    rents.add(c);
+    final Rent d = new Rent("d", 2, 3, 15L);
+    rents.add(d);
+    final Rent e = new Rent("e", 2, 1, 22L);
+    rents.add(e);
+    final Rent f = new Rent("f", 0, 1, 25L);
+    rents.add(f);
+    final Rent g = new Rent("g", 1, 1, 17L);
+    rents.add(g);
+    final Plan plan = underTest.optimize(rents);
+    assertEquals(64L, (long) plan.getGain());
+    assertEquals(Lists.newArrayList(e, f, g), plan.getRents());
   }
 }

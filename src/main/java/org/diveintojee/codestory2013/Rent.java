@@ -5,6 +5,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,6 +20,7 @@ public class Rent implements Serializable, Comparable<Rent>{
   private Integer start;
   private Integer duration;
   private Long price;
+  private Set<Rent> conflicts = new HashSet<Rent>();
 
   public Rent() {
   }
@@ -33,32 +36,44 @@ public class Rent implements Serializable, Comparable<Rent>{
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public Integer getStart() {
     return start;
-  }
-
-  public void setStart(Integer start) {
-    this.start = start;
   }
 
   public Integer getDuration() {
     return duration;
   }
 
-  public void setDuration(Integer duration) {
-    this.duration = duration;
-  }
-
   public Long getPrice() {
     return price;
   }
 
+  public Set<Rent> getConflicts() {
+    return conflicts;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setStart(Integer start) {
+    this.start = start;
+  }
+
+  public void setDuration(Integer duration) {
+    this.duration = duration;
+  }
+
   public void setPrice(Long price) {
     this.price = price;
+  }
+
+  public void setConflicts(Set<Rent> conflicts) {
+    this.conflicts = conflicts;
+  }
+
+  public boolean conflictsWith(Rent other) {
+    return getStart() < other.getEnd() && getEnd() > other.getStart();
   }
 
   @Override
@@ -70,18 +85,9 @@ public class Rent implements Serializable, Comparable<Rent>{
       return false;
     }
 
-    Rent flight = (Rent) o;
+    Rent rent = (Rent) o;
 
-    if (!duration.equals(flight.duration)) {
-      return false;
-    }
-    if (!name.equals(flight.name)) {
-      return false;
-    }
-    if (!price.equals(flight.price)) {
-      return false;
-    }
-    if (!start.equals(flight.start)) {
+    if (!name.equals(rent.name)) {
       return false;
     }
 
@@ -90,11 +96,7 @@ public class Rent implements Serializable, Comparable<Rent>{
 
   @Override
   public int hashCode() {
-    int result = name.hashCode();
-    result = 31 * result + start.hashCode();
-    result = 31 * result + duration.hashCode();
-    result = 31 * result + price.hashCode();
-    return result;
+    return name.hashCode();
   }
 
   @Override

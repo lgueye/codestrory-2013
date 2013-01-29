@@ -17,32 +17,20 @@ import java.util.List;
  */
 public class Plan implements Serializable {
 
-  private Long gain = 0L;
-  private Integer end = 0;
   private List<String> path = Lists.newArrayList();
 
   private List<Rent> rents = Lists.newArrayList();
 
-  public Plan() {
-  }
-
-  public Plan(Long gain, List<String> path) {
-    setGain(gain);
-    setPath(path);
-  }
-
-  public Plan(Plan plan) {
-    setGain(plan.getGain());
-    this.rents = plan.getRents();
-    this.path = plan.getPath();
+  public Plan(List<Rent> rents) {
+    this.rents = rents;
   }
 
   public Long getGain() {
+    long gain = 0;
+    for (Rent rent : rents) {
+      gain += rent.getPrice();
+    }
     return gain;
-  }
-
-  public void setGain(Long gain) {
-    this.gain = gain;
   }
 
   public List<String> getPath() {
@@ -62,12 +50,9 @@ public class Plan implements Serializable {
       return false;
     }
 
-    Plan that = (Plan) o;
+    Plan plan = (Plan) o;
 
-    if (!gain.equals(that.gain)) {
-      return false;
-    }
-    if (!path.equals(that.path)) {
+    if (!rents.equals(plan.rents)) {
       return false;
     }
 
@@ -76,30 +61,15 @@ public class Plan implements Serializable {
 
   @Override
   public int hashCode() {
-    int result = gain.hashCode();
-    result = 31 * result + path.hashCode();
-    return result;
+    return rents.hashCode();
   }
 
   @Override
   public String toString() {
     return new ToStringBuilder(this).
-        append("gain", gain).
+        append("gain", getGain()).
         append("path", path).
         toString();
-  }
-
-  public boolean matches(Rent candidate) {
-    System.out.println("running candidate = " + candidate);
-    final Rent last = Iterables.getLast(rents, null);
-    if(last == null || candidate.getStart() >= last.getEnd() && candidate.getEnd() <= 24) {
-      this.end = candidate.getEnd();
-      this.gain += candidate.getPrice();
-      System.out.println("adding candidate = " + candidate);
-      this.rents.add(candidate);
-      return true;
-    }
-    return false;
   }
 
   @JsonIgnore
