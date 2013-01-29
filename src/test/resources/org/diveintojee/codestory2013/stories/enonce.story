@@ -5,7 +5,6 @@ Meta:
 @progress done
 
 Narrative:
-Given my server is ready
 When It's provided a subject
 It should be able to read the subject
 

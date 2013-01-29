@@ -11,7 +11,7 @@ import org.jbehave.core.model.OutcomesTable;
 import java.util.Map;
 
 /**
- * User: louis.gueye@gmail.com
+ * @author louis.gueye@gmail.com
  */
 public abstract class BackendBaseSteps {
 
@@ -28,11 +28,6 @@ public abstract class BackendBaseSteps {
     @Then("the response code should be \"$statusCode\"")
     public void expectStatusCode(@Named("statusCode") final int statusCode) {
         this.exchange.assertExpectedStatus(statusCode);
-    }
-
-    @Given("I accept \"<responseLanguage>\" language")
-    public void setAcceptLanguage(@Named("responseLanguage") final String requestedLanguage) {
-        this.exchange.getRequest().setRequestedLanguage(requestedLanguage);
     }
 
     @Given("I accept \"<responseContentType>\" format")

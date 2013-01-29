@@ -1,4 +1,4 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.questions;
 
 import com.google.common.base.CharMatcher;
 
@@ -7,24 +7,24 @@ import com.google.common.base.CharMatcher;
  */
 public class Parser {
 
-    int pos;
+    int position;
     String input;
 
     Parser(String input) {
-        pos = 0;
+        position = 0;
         this.input = input;
     }
 
     char lookNext() {
-        if (input.length() <= pos) {
+        if (input.length() <= position) {
             return '\n';
         }
-        return input.charAt(pos);
+        return input.charAt(position);
     }
 
     char next() {
         char c = lookNext();
-        pos++;
+        position++;
         return c;
     }
 

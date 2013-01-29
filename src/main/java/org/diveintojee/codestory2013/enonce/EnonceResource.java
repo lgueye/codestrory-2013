@@ -1,4 +1,4 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.enonce;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.scalaskel;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

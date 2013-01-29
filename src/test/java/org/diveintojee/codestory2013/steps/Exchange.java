@@ -8,7 +8,6 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.client.apache4.ApacheHttpClient4;
 import com.sun.jersey.client.apache4.config.DefaultApacheHttpClient4Config;
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.junit.Assert;
 
 import java.net.URI;
@@ -16,11 +15,14 @@ import java.util.ResourceBundle;
 
 
 /**
- * User: louis.gueye@gmail.com Date: 24/08/12 Time: 01:14
+ * @author louis.gueye@gmail.com
  */
 public class Exchange {
 
-    private static final String baseEndPoint = ResourceBundle.getBundle("stories-context").getString("baseEndPoint");
+    private static final
+    String
+            baseEndPoint =
+            ResourceBundle.getBundle("stories-context").getString("baseEndPoint");
 
     /**
      *
@@ -30,7 +32,6 @@ public class Exchange {
         final DefaultClientConfig config = new DefaultApacheHttpClient4Config();
         this.jerseyClient = ApacheHttpClient4.create(config);
         this.jerseyClient.addFilter(new LoggingFilter());
-        config.getClasses().add(JacksonJsonProvider.class);
         config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
     }
 
@@ -43,13 +44,6 @@ public class Exchange {
      */
     public void assertExpectedStatus(int expected) {
         Assert.assertEquals(expected, this.clientResponse.getStatus());
-    }
-
-    /**
-     * @return
-     */
-    public URI getLocation() {
-        return this.clientResponse.getLocation();
     }
 
     /**
@@ -77,8 +71,12 @@ public class Exchange {
      * @return
      */
     private URI newURI(String uriAsString) {
-        if (Strings.isNullOrEmpty(uriAsString)) return URI.create(baseEndPoint);
-        if (!uriAsString.startsWith("/")) return URI.create(uriAsString);
+        if (Strings.isNullOrEmpty(uriAsString)) {
+            return URI.create(baseEndPoint);
+        }
+        if (!uriAsString.startsWith("/")) {
+            return URI.create(uriAsString);
+        }
         return URI.create(baseEndPoint + uriAsString);
     }
 

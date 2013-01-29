@@ -1,4 +1,4 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.questions;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import static org.junit.Assert.*;
 
 /**
- * User: lgueye Date: 24/01/13 Time: 11:29
+ * @author louis.gueye@gmail.com
  */
 public class QuestionsResourceTest {
 

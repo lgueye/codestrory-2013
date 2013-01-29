@@ -1,4 +1,4 @@
-package org.diveintojee.codestory2013;
+package org.diveintojee.codestory2013.questions;
 
 import com.google.common.base.CharMatcher;
 import org.springframework.stereotype.Component;
@@ -94,12 +94,12 @@ public class CalculatorService {
         final char nextChar = parser.lookNext();
         boolean shouldNegate = false;
         if ('-' == nextChar) {
-          shouldNegate = true;
-          parser.next();
+            shouldNegate = true;
+            parser.next();
         }
         final String literalAsString = parser.read(CharMatcher.anyOf(legalChars));
         BigDecimal literal = new BigDecimal(literalAsString.replaceAll(",", "."));
-        return shouldNegate? literal.negate():literal;
+        return shouldNegate ? literal.negate() : literal;
     }
 
 }
