@@ -15,56 +15,57 @@ import java.util.Set;
 @XmlRootElement
 public class Rent implements Serializable, Comparable<Rent> {
 
-    private String name;
-    private Integer start;
-    private Integer duration;
-    private Long price;
+    private String vol;
+    private Integer depart;
+    private Integer duree;
+    private Long prix;
     private Set<Rent> conflicts = new HashSet<Rent>();
 
     public Rent() {
     }
 
-    public Rent(String name, Integer start, Integer duration, Long price) {
-        this.name = name;
-        this.start = start;
-        this.duration = duration;
-        this.price = price;
+    public Rent(String vol, Integer depart, Integer duree, Long prix) {
+        this.vol = vol;
+        this.depart = depart;
+        this.duree = duree;
+        this.prix = prix;
     }
 
-    public String getName() {
-        return name;
+    public String getVol() {
+        return vol;
     }
 
-    public Integer getStart() {
-        return start;
+    public Integer getDepart() {
+        return depart;
     }
 
-    public Integer getDuration() {
-        return duration;
+    public Integer getDuree() {
+        return duree;
     }
 
-    public Long getPrice() {
-        return price;
+    public Long getPrix() {
+        return prix;
     }
 
+    @JsonIgnore
     public Set<Rent> getConflicts() {
         return conflicts;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVol(String vol) {
+        this.vol = vol;
     }
 
-    public void setStart(Integer start) {
-        this.start = start;
+    public void setDepart(Integer depart) {
+        this.depart = depart;
     }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
+    public void setDuree(Integer duree) {
+        this.duree = duree;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setPrix(Long prix) {
+        this.prix = prix;
     }
 
     public void setConflicts(Set<Rent> conflicts) {
@@ -72,7 +73,7 @@ public class Rent implements Serializable, Comparable<Rent> {
     }
 
     public boolean conflictsWith(Rent other) {
-        return getStart() < other.getEnd() && getEnd() > other.getStart();
+        return getDepart() < other.getEnd() && getEnd() > other.getDepart();
     }
 
     @Override
@@ -86,7 +87,7 @@ public class Rent implements Serializable, Comparable<Rent> {
 
         Rent rent = (Rent) o;
 
-        if (!name.equals(rent.name)) {
+        if (!vol.equals(rent.vol)) {
             return false;
         }
 
@@ -95,26 +96,26 @@ public class Rent implements Serializable, Comparable<Rent> {
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return vol.hashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).
-                append("name", name).
-                append("start", start).
-                append("duration", duration).
-                append("price", price).
+                append("vol", vol).
+                append("depart", depart).
+                append("duree", duree).
+                append("prix", prix).
                 toString();
     }
 
     @JsonIgnore
     public Integer getEnd() {
-        return this.start + this.duration;
+        return this.depart + this.duree;
     }
 
     @Override
     public int compareTo(Rent o) {
-        return this.start - o.start;
+        return this.depart - o.depart;
     }
 }

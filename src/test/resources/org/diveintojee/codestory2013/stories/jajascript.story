@@ -69,4 +69,4 @@ When the server is asked the provided the payload:
 | repulsive-teacup-84       | 43     | 2     | 1    |
 Then the response should be:
 | code | body |
-| 200  | {"path":["dark-playwright-49","long-alcohol-70","modern-lava-64","harsh-sword-34","stupid-reformer-69","puny-judo-34","blue-eyed-fishnet-70","homeless-warship-63","hushed-fencer-85"],"gain":145} |
+| 200  | {"path":["dark-playwright-49","long-alcohol-70","modern-lava-64","harsh-sword-34","puny-judo-34","stupid-reformer-69","blue-eyed-fishnet-70","hushed-fencer-85","homeless-warship-63"],"gain":145} |

@@ -44,7 +44,6 @@ public class JajascriptService {
                 LinkedHashSet<Rent> cleanRemainings = Sets.newLinkedHashSet(newRemainings);
                 cleanRemainings.removeAll(current.getConflicts());
                 Plan resultLeft = resolve(selectedLeft, cleanRemainings);
-
                 Plan resultRight = resolve(selected, newRemainings);
                 return resultLeft.getGain() > resultRight.getGain() ? resultLeft : resultRight;
             } else {

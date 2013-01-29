@@ -1,18 +1,20 @@
 package org.diveintojee.codestory2013.jajascript;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author louis.gueye@gmail.com
  */
 public class Plan implements Serializable {
-
-    private List<String> path = Lists.newArrayList();
 
     private List<Rent> rents = Lists.newArrayList();
 
@@ -23,17 +25,21 @@ public class Plan implements Serializable {
     public Long getGain() {
         long gain = 0;
         for (Rent rent : rents) {
-            gain += rent.getPrice();
+            gain += rent.getPrix();
         }
         return gain;
     }
 
     public List<String> getPath() {
-        return path;
-    }
+        Collections.sort(getRents());
+        Collection<String> names = Collections2.transform(getRents(), new Function<Rent, String>() {
+            @Override
+            public String apply(Rent input) {
+                return input.getVol();
+            }
+        });
 
-    public void setPath(List<String> path) {
-        this.path = path;
+        return Lists.newArrayList(names);
     }
 
     @Override
@@ -44,13 +50,10 @@ public class Plan implements Serializable {
         if (!(o instanceof Plan)) {
             return false;
         }
-
         Plan plan = (Plan) o;
-
         if (!rents.equals(plan.rents)) {
             return false;
         }
-
         return true;
     }
 
@@ -63,7 +66,7 @@ public class Plan implements Serializable {
     public String toString() {
         return new ToStringBuilder(this).
                 append("gain", getGain()).
-                append("path", path).
+                append("path", getPath()).
                 toString();
     }
 
