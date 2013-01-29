@@ -26,6 +26,7 @@ public class JajascriptResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/optimize")
     public Response optimizePayload(Rent[] rents) {
+        System.out.println(Lists.newArrayList(rents));
         Plan solution = jajascriptService.optimize(Lists.newArrayList(rents));
         return Response.ok().entity(solution).build();
     }
