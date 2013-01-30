@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +33,7 @@ public class JajascriptServiceTest {
         rents.add(c);
         final Rent d = new Rent("d", 5, 9, 7L);
         rents.add(d);
-        final Plan plan = underTest.optimize(rents);
+        final Plan plan = underTest.optimize(rents, new HashMap<Rent, Plan>());
         assertEquals(18L, (long) plan.getGain());
         assertEquals(Lists.newArrayList(a, c), plan.getRents());
     }
@@ -55,7 +56,7 @@ public class JajascriptServiceTest {
         rents.add(f);
         final Rent g = new Rent("g", 1, 1, 17L);
         rents.add(g);
-        final Plan plan = underTest.optimize(rents);
+        final Plan plan = underTest.optimize(rents, new HashMap<Rent, Plan>());
         assertEquals(Lists.newArrayList(f, g, e), plan.getRents());
       assertEquals(64L, (long) plan.getGain());
     }

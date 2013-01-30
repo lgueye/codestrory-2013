@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -34,7 +35,7 @@ public class JajascriptResource {
     public Response optimizePayload(String body) throws IOException {
         System.out.println(body);
         Rent[] rents = new ObjectMapper().setPropertyNamingStrategy(uppercasePropertyNamingStrategy).readValue(body, Rent[].class);
-        Plan solution = jajascriptService.optimize(Lists.newArrayList(rents));
+        Plan solution = jajascriptService.optimize(Lists.newArrayList(rents), new HashMap<Rent, Plan>());
         return Response.ok().entity(solution).build();
     }
 

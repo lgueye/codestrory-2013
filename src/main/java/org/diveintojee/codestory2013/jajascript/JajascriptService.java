@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -17,14 +16,12 @@ import java.util.Map;
 @Component
 public class JajascriptService {
 
-    Map<Rent, Plan> cache = new HashMap<Rent, Plan>();
-
-    public Plan optimize(List<Rent> rents) {
+    public Plan optimize(List<Rent> rents, final Map<Rent, Plan> cache) {
         long start;
         computeConflicts(rents);
         start = System.currentTimeMillis();
         Collections.sort(rents);
-        final Plan solution = resolve(Sets.newLinkedHashSet(rents));
+        final Plan solution = resolve(Sets.newLinkedHashSet(rents), cache);
         System.out.println("resolve took " + (System.currentTimeMillis() - start) + " ms");
         return solution;
     }
@@ -42,7 +39,7 @@ public class JajascriptService {
         }
     }
 
-    public Plan resolve(LinkedHashSet<Rent> remainings) {
+    public Plan resolve(LinkedHashSet<Rent> remainings, final Map<Rent, Plan> cache) {
         if (!remainings.isEmpty()) {
             final Iterator<Rent> iterator = remainings.iterator();
             Rent current = iterator.next();
@@ -54,14 +51,14 @@ public class JajascriptService {
             if (conflictsWithAny(newRemainings, current)) {
                 LinkedHashSet<Rent> cleanRemainings = Sets.newLinkedHashSet(newRemainings);
                 cleanRemainings.removeAll(current.getConflicts());
-                Plan resultLeft = resolve(cleanRemainings).addRent(current);
+                Plan resultLeft = resolve(cleanRemainings, cache).addRent(current);
 
-                Plan resultRight = resolve(newRemainings);
+                Plan resultRight = resolve(newRemainings, cache);
               final Plan result = resultLeft.getGain() > resultRight.getGain() ? resultLeft : resultRight;
               cache.put(current, result);
               return result;
             } else {
-              final Plan result = resolve(newRemainings).addRent(current);
+              final Plan result = resolve(newRemainings, cache).addRent(current);
               cache.put(current, result);
               return result;
             }
