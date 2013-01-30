@@ -103,3 +103,9 @@ When the server is asked the question "As tu bien recu le second enonce(OUI/NON)
 Then the response should be:
 | code | body | requiredType |
 | 200  | OUI  | text/plain   |
+
+Scenario: the server should answer to the question about the cheating
+When the server is asked the question "As tu copie le code de ndeloof(OUI/NON/JE_SUIS_NICOLAS)"
+Then the response should be:
+| code | body | requiredType |
+| 200  | NON  | text/plain   |
