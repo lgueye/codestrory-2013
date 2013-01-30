@@ -1,7 +1,9 @@
 package org.diveintojee.codestory2013.steps;
 
 import com.google.common.collect.ImmutableMap;
+
 import com.sun.jersey.api.client.ClientResponse;
+
 import org.apache.commons.codec.EncoderException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.diveintojee.codestory2013.jajascript.JajascriptResource;
@@ -11,10 +13,11 @@ import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.util.Map;
+
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
 
 /**
  * @author louis.gueye@gmail.com

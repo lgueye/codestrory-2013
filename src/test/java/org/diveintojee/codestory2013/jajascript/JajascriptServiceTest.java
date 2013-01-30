@@ -1,6 +1,7 @@
 package org.diveintojee.codestory2013.jajascript;
 
 import com.google.common.collect.Lists;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +45,7 @@ public class JajascriptServiceTest {
         final Rent b = new Rent("b", 1, 2, 9L);
         rents.add(b);
         final Rent c = new Rent("c", 1, 3, 7L);
+
         rents.add(c);
         final Rent d = new Rent("d", 2, 3, 15L);
         rents.add(d);
@@ -54,7 +56,7 @@ public class JajascriptServiceTest {
         final Rent g = new Rent("g", 1, 1, 17L);
         rents.add(g);
         final Plan plan = underTest.optimize(rents);
-        assertEquals(64L, (long) plan.getGain());
-        assertEquals(Lists.newArrayList(e, f, g), plan.getRents());
+        assertEquals(Lists.newArrayList(f, g, e), plan.getRents());
+      assertEquals(64L, (long) plan.getGain());
     }
 }

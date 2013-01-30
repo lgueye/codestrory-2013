@@ -3,6 +3,7 @@ package org.diveintojee.codestory2013.jajascript;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -16,23 +17,41 @@ import java.util.List;
  */
 public class Plan implements Serializable {
 
+  public static final Plan EMPTY = new Plan(Lists.<Rent>newArrayList(), 0L);
+
     private List<Rent> rents = Lists.newArrayList();
+    private long gain = -1;
 
     public Plan(List<Rent> rents) {
         this.rents = rents;
     }
 
+  public Plan(List<Rent> rents, long gain) {
+      this.rents = rents;
+    this.gain = gain;
+  }
+
+    public Plan addRent(Rent rent) {
+      List<Rent> newRents = Lists.newArrayList(rent);
+      newRents.addAll(rents);
+      return new Plan(newRents, this.gain + rent.getPRIX());
+    }
+
     public Long getGain() {
+      if (this.gain == -1) {
         long gain = 0;
         for (Rent rent : rents) {
-            gain += rent.getPRIX();
+          gain += rent.getPRIX();
         }
-        return gain;
+        this.gain = gain;
+      }
+      return this.gain;
     }
 
     public List<String> getPath() {
-        Collections.sort(getRents());
-        Collection<String> names = Collections2.transform(getRents(), new Function<Rent, String>() {
+      final List<Rent> copy = Lists.newLinkedList(getRents());
+      Collections.sort(copy);
+        Collection<String> names = Collections2.transform(copy, new Function<Rent, String>() {
             @Override
             public String apply(Rent input) {
                 return input.getVOL();
