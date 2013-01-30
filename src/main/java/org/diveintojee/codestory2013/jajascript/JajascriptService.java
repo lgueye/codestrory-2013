@@ -1,12 +1,15 @@
 package org.diveintojee.codestory2013.jajascript;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author louis.gueye@gmail.com
@@ -14,9 +17,16 @@ import java.util.List;
 @Component
 public class JajascriptService {
 
+    Map<Rent, Plan> cache = new HashMap<Rent, Plan>();
+
     public Plan optimize(List<Rent> rents) {
+        long start;
         computeConflicts(rents);
-        return resolve(Lists.<Rent>newArrayList(), Sets.newLinkedHashSet(rents));
+        start = System.currentTimeMillis();
+        Collections.sort(rents);
+        final Plan solution = resolve(Sets.newLinkedHashSet(rents));
+        System.out.println("resolve took " + (System.currentTimeMillis() - start) + " ms");
+        return solution;
     }
 
     public void computeConflicts(List<Rent> rents) {
@@ -32,27 +42,31 @@ public class JajascriptService {
         }
     }
 
-    public Plan resolve(List<Rent> selected, LinkedHashSet<Rent> remainings) {
+    public Plan resolve(LinkedHashSet<Rent> remainings) {
         if (!remainings.isEmpty()) {
-            LinkedHashSet<Rent> newRemainings = Sets.newLinkedHashSet(remainings);
-            final Iterator<Rent> iterator = newRemainings.iterator();
+            final Iterator<Rent> iterator = remainings.iterator();
             Rent current = iterator.next();
-            iterator.remove();
+            if (cache.containsKey(current)) {
+              return cache.get(current);
+            }
+            LinkedHashSet<Rent> newRemainings = Sets.newLinkedHashSet(remainings);
+            newRemainings.remove(current);
             if (conflictsWithAny(newRemainings, current)) {
-                List<Rent> selectedLeft = Lists.newArrayList(selected);
-                selectedLeft.add(current);
                 LinkedHashSet<Rent> cleanRemainings = Sets.newLinkedHashSet(newRemainings);
                 cleanRemainings.removeAll(current.getConflicts());
-                Plan resultLeft = resolve(selectedLeft, cleanRemainings);
-                Plan resultRight = resolve(selected, newRemainings);
-                return resultLeft.getGain() > resultRight.getGain() ? resultLeft : resultRight;
+                Plan resultLeft = resolve(cleanRemainings).addRent(current);
+
+                Plan resultRight = resolve(newRemainings);
+              final Plan result = resultLeft.getGain() > resultRight.getGain() ? resultLeft : resultRight;
+              cache.put(current, result);
+              return result;
             } else {
-                List<Rent> newSelected = Lists.newArrayList(selected);
-                newSelected.add(current);
-                return resolve(newSelected, newRemainings);
+              final Plan result = resolve(newRemainings).addRent(current);
+              cache.put(current, result);
+              return result;
             }
         } else {
-            return new Plan(selected);
+          return Plan.EMPTY;
         }
     }
 

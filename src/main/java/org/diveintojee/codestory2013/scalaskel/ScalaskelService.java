@@ -2,6 +2,7 @@ package org.diveintojee.codestory2013.scalaskel;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;

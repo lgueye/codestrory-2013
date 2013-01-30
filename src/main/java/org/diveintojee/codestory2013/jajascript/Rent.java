@@ -4,10 +4,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author louis.gueye@gmail.com

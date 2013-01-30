@@ -1,6 +1,7 @@
 package org.diveintojee.codestory2013.questions;
 
 import com.google.common.base.CharMatcher;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

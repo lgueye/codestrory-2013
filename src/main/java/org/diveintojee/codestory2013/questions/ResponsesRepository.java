@@ -1,6 +1,7 @@
 package org.diveintojee.codestory2013.questions;
 
 import com.google.common.collect.ImmutableMap;
+
 import org.springframework.stereotype.Component;
 
 /**

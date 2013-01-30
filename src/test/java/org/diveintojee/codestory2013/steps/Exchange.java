@@ -1,6 +1,7 @@
 package org.diveintojee.codestory2013.steps;
 
 import com.google.common.base.Strings;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -8,6 +9,7 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.client.apache4.ApacheHttpClient4;
 import com.sun.jersey.client.apache4.config.DefaultApacheHttpClient4Config;
+
 import org.junit.Assert;
 
 import java.net.URI;
