@@ -25,7 +25,7 @@ public class Plan implements Serializable {
     public Long getGain() {
         long gain = 0;
         for (Rent rent : rents) {
-            gain += rent.getPrix();
+            gain += rent.getPRIX();
         }
         return gain;
     }
@@ -35,7 +35,7 @@ public class Plan implements Serializable {
         Collection<String> names = Collections2.transform(getRents(), new Function<Rent, String>() {
             @Override
             public String apply(Rent input) {
-                return input.getVol();
+                return input.getVOL();
             }
         });
 

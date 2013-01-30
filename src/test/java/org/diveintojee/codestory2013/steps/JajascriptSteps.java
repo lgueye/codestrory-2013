@@ -3,9 +3,15 @@ package org.diveintojee.codestory2013.steps;
 import com.google.common.collect.ImmutableMap;
 import com.sun.jersey.api.client.ClientResponse;
 import org.apache.commons.codec.EncoderException;
+import org.codehaus.jackson.map.MapperConfig;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.PropertyNamingStrategy;
+import org.codehaus.jackson.map.introspect.AnnotatedField;
+import org.codehaus.jackson.map.introspect.AnnotatedMethod;
+import org.codehaus.jackson.map.introspect.AnnotatedParameter;
 import org.diveintojee.codestory2013.jajascript.JajascriptResource;
 import org.diveintojee.codestory2013.jajascript.Rent;
+import org.diveintojee.codestory2013.jajascript.UppercasePropertyNamingStrategy;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
@@ -44,7 +50,9 @@ public class JajascriptSteps extends BackendBaseSteps {
                         .build().toString();
         this.exchange.getRequest().setUri(uri);
         Rent[] payload = fromPayLoadAsTable(payloadAsTable);
-        this.exchange.getRequest().setBody(new ObjectMapper()
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setPropertyNamingStrategy(new UppercasePropertyNamingStrategy());
+        this.exchange.getRequest().setBody(objectMapper
                 .writeValueAsString(payload));
         this.exchange.sendPostRequest();
     }
