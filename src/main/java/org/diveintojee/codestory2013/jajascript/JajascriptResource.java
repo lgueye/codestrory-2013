@@ -1,7 +1,6 @@
 package org.diveintojee.codestory2013.jajascript;
 
 import com.google.common.collect.Lists;
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.PropertyNamingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
