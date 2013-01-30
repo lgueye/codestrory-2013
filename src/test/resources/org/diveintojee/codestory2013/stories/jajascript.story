@@ -9,7 +9,7 @@ When the server is provided a payload
 It should be able to provide the most optimized solution
 
 Scenario: the server should be able to provide the most optimize
-When the server is asked the provided the payload:
+When the server is asked to optimize the provided payload:
 | vol      | depart | duree | prix |
 | MONAD42  | 0      | 5     | 10   |
 | META18   | 3      | 7     | 14   |
@@ -17,10 +17,10 @@ When the server is asked the provided the payload:
 | YAGNI17  | 5      | 9     | 7    |
 Then the response should be:
 | code | body                                      |
-| 200  | {"path":["MONAD42","LEGACY01"],"gain":18} |
+| 200  | {"gain":18,"path":["MONAD42","LEGACY01"]} |
 
 Scenario: the server should be able to provide the most optimized solution 2
-When the server is asked the provided the payload:
+When the server is asked to optimize the provided payload:
 | vol                       | depart | duree | prix |
 | dark-playwright-49        | 0      | 5     | 17   |
 | swift-whirlwind-45        | 2      | 2     | 15   |
@@ -72,7 +72,7 @@ Then the response should be:
 | 200  | {"gain":145,"path":["dark-playwright-49","long-alcohol-70","modern-lava-64","harsh-sword-34","puny-judo-34","stupid-reformer-69","blue-eyed-fishnet-70","hushed-fencer-85","homeless-warship-63"]} |
 
 Scenario: the server should be able to provide the most optimized solution
-When the server is asked the provided the payload:
+When the server is asked to optimize the provided payload:
 | vol                          | depart | duree | prix |
 | funny-bandana-20             | 3      | 3     | 25   |
 | super-bumblebee-89           | 0      | 7     | 21   |
