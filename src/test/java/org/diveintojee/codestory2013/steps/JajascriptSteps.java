@@ -36,7 +36,7 @@ public class JajascriptSteps extends BackendBaseSteps {
         return builder.build();
     }
 
-    @When("the server is asked the provided the payload: $payload")
+    @When("the server is asked to optimize the provided payload: $payload")
     public void askQuestion(@Named("payload") ExamplesTable payloadAsTable)
             throws EncoderException, IOException {
         this.exchange.getRequest().setType(MediaType.APPLICATION_JSON);
