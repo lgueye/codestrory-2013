@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Plan implements Serializable, Comparable<Plan> {
 
-    private List<Rent> rents = Lists.newArrayList();
+    private List<Rent> rents = Lists.newLinkedList();
     private int end;
 
     public Plan(List<Rent> rents) {
@@ -52,7 +52,11 @@ public class Plan implements Serializable, Comparable<Plan> {
 
     @JsonIgnore
     public int getEnd() {
-        return end;
+      int end = 0;
+      for (Rent rent : rents) {
+          if( rent.getEnd()> end) end = rent.getEnd() ;
+      }
+      return end;
     }
 
     @Override
@@ -80,9 +84,12 @@ public class Plan implements Serializable, Comparable<Plan> {
                 '}';
     }
 
-    public Plan removeLastRent() {
-        List<Rent> clone = Lists.newArrayList(rents);
-        clone.remove(0);
-        return new Plan(clone);
+    public Rent lastInserted() {
+        return rents.get(0);
     }
+
+  public void replaceLast(Rent bestForhour) {
+    rents.remove(lastInserted());
+    rents.add(bestForhour);
+  }
 }
