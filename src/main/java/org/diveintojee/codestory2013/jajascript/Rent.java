@@ -1,11 +1,12 @@
 package org.diveintojee.codestory2013.jajascript;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * @author louis.gueye@gmail.com
@@ -26,10 +27,10 @@ public class Rent implements Serializable, Comparable<Rent> {
     }
 
     public Rent(String name, int start, int duration, int amount) {
-      this.name = name;
-      this.start = start;
-      this.duration = duration;
-      this.amount = amount;
+        this.name = name;
+        this.start = start;
+        this.duration = duration;
+        this.amount = amount;
     }
 
     @JsonIgnore
@@ -39,38 +40,77 @@ public class Rent implements Serializable, Comparable<Rent> {
 
     @Override
     public int compareTo(Rent o) {
-        return o.start - o.start;
+        return this.start - o.start;
     }
 
     public String getName() {
-      return name;
+        return name;
     }
 
     public void setName(String name) {
-      this.name = name;
+        this.name = name;
     }
 
     public int getStart() {
-      return start;
+        return start;
     }
 
     public void setStart(int start) {
-      this.start = start;
+        this.start = start;
     }
 
     public int getDuration() {
-      return duration;
+        return duration;
     }
 
     public void setDuration(int duration) {
-      this.duration = duration;
+        this.duration = duration;
     }
 
     public int getAmount() {
-      return amount;
+        return amount;
     }
 
     public void setAmount(int amount) {
-      this.amount = amount;
+        this.amount = amount;
+    }
+
+    public boolean conflictsWith(Plan plan) {
+        return this.getStart() < plan.getEnd();
+    }
+
+    public boolean startsAt(int hour) {
+        return this.start == hour;
+    }
+
+    public boolean hasHigherAmount(Rent other) {
+        return other == null || other.getAmount() < this.amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Rent rent = (Rent) o;
+
+        if (!name.equals(rent.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).
+                append("name", name).
+                append("start", start).
+                append("duration", duration).
+                append("amount", amount).
+                toString();
     }
 }

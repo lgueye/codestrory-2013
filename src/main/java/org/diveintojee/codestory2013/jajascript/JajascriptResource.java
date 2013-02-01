@@ -35,7 +35,7 @@ public class JajascriptResource {
     public Response optimizePayload(String body) throws IOException {
         System.out.println(body);
         Rent[] rents = new ObjectMapper().setPropertyNamingStrategy(uppercasePropertyNamingStrategy).readValue(body, Rent[].class);
-        Plan solution = jajascriptService.optimize(Lists.newArrayList(rents), new HashMap<Rent, Plan>());
+        Plan solution = jajascriptService.optimize(Lists.newArrayList(rents));
         return Response.ok().entity(solution).build();
     }
 

@@ -1,18 +1,10 @@
 package org.diveintojee.codestory2013.jajascript;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
-
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author louis.gueye@gmail.com
@@ -21,25 +13,54 @@ import java.util.Map;
 public class JajascriptService {
 
     public Plan optimize(List<Rent> rents) {
-        long start;
+        long start = System.currentTimeMillis();
         Collections.sort(rents);
-        int maxStart = resolveMaxStart(rents);
-        // scan each hour for departures, starting from the last hour, ending at the first
-        while (maxStart > -1) {
-            System.out.println("current hour = " + maxStart);
-            maxStart --;
+        int maxHour = resolveMaxHour(rents);
+        // scan each hour for departures, starting from the first hour
+        Plan best = new Plan(Lists.<Rent>newArrayList());
+        for (int hour = 0; hour < maxHour; hour++) {
+            System.out.println("hour = " + hour);
+            Rent bestForhour = null;
+            boolean conflict = false;
+            for (Rent rent : rents) {
+                // Only interested in rents who start at hour
+                if (rent.startsAt(hour)) {
+                    if (rent.hasHigherAmount(bestForhour)) {
+                        System.out.println("setting bestForHour to = " + rent);
+                        bestForhour = rent;
+                    }
+                    if (!conflict && rent.conflictsWith(best)) {
+                        conflict = true;
+                    }
+                }
+
+            }
+
+            if (bestForhour == null) continue;
+
+            if (!conflict) {
+                System.out.println("No conflict, adding best rent " + bestForhour + " for hour " + hour);
+                best.addRent(bestForhour);
+            } else {
+                Plan candidate = new Plan(Lists.<Rent>newArrayList());
+                candidate.addRent(bestForhour);
+                boolean freshPlanBeatsOldOne = candidate.compareTo(best) > 0;
+                if (freshPlanBeatsOldOne) {
+                    System.out.println("Conflict, fresh plan beats old one, setting best to new plan " + candidate);
+                    best = candidate;
+                }
+            }
         }
-        return null;
+        System.out.println("optimize took = " + (System.currentTimeMillis() - start) + " ms");
+        return best;
     }
 
-  private int resolveMaxStart(List<Rent> rents) {
-    final Collection<Rent> iterable = Collections2.filter(rents, new Predicate<Rent>() {
-      @Override
-      public boolean apply(Rent input) {
-        throw new UnsupportedOperationException("Not implemented");
-        // return false;  //To change body of implemented methods use File | Settings | File Templates.
-      }
-    });
-    return Iterables.getFirst(iterable, null).getStart();
-  }
+    int resolveMaxHour(List<Rent> rents) {
+        int maxHour = 0;
+        for (Rent rent : rents) {
+            Integer rentEnd = rent.getEnd();
+            if (rentEnd > maxHour) maxHour = rentEnd;
+        }
+        return maxHour;
+    }
 }
