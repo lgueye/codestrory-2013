@@ -7,7 +7,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,11 +14,18 @@ import java.util.List;
  */
 public class Plan implements Serializable, Comparable<Plan> {
 
-    private List<Rent> rents = Lists.newLinkedList();
-    private int end;
+    private List<Rent> rents;
 
     public Plan(List<Rent> rents) {
         this.rents = rents;
+    }
+
+    public static Plan fromPlan(Plan plan) {
+        Plan tmp = new Plan(Lists.<Rent>newLinkedList());
+        for (Rent rent : plan.getRents()) {
+            tmp.addRent(rent);
+        }
+        return tmp;
     }
 
     @JsonProperty("path")
@@ -42,7 +48,6 @@ public class Plan implements Serializable, Comparable<Plan> {
     }
 
     public void addRent(Rent rent) {
-        this.end = rent.getEnd();
         this.rents.add(rent);
     }
 
@@ -52,11 +57,11 @@ public class Plan implements Serializable, Comparable<Plan> {
 
     @JsonIgnore
     public int getEnd() {
-      int end = 0;
-      for (Rent rent : rents) {
-          if( rent.getEnd()> end) end = rent.getEnd() ;
-      }
-      return end;
+        int end = 0;
+        for (Rent rent : rents) {
+            if (rent.getEnd() > end) end = rent.getEnd();
+        }
+        return end;
     }
 
     @Override
@@ -84,12 +89,7 @@ public class Plan implements Serializable, Comparable<Plan> {
                 '}';
     }
 
-    public Rent lastInserted() {
-        return rents.get(0);
+    public List<Rent> getRents() {
+        return rents;
     }
-
-  public void replaceLast(Rent bestForhour) {
-    rents.remove(lastInserted());
-    rents.add(bestForhour);
-  }
 }

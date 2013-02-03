@@ -75,16 +75,8 @@ public class Rent implements Serializable, Comparable<Rent> {
         this.amount = amount;
     }
 
-    public boolean conflictsWith(Plan plan) {
-        return this.getStart() < plan.getEnd();
-    }
-
     public boolean startsAt(int hour) {
         return this.start == hour;
-    }
-
-    public boolean hasHigherAmount(Rent other) {
-        return other == null || other.getAmount() < this.amount;
     }
 
     @Override

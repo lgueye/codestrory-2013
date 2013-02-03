@@ -1,19 +1,16 @@
 package org.diveintojee.codestory2013.steps;
 
 import com.google.common.collect.ImmutableMap;
-
 import com.sun.jersey.api.client.ClientResponse;
-
 import org.apache.commons.codec.EncoderException;
 import org.diveintojee.codestory2013.questions.QuestionsResource;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.When;
 
-import java.util.Map;
-
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
+import java.util.Map;
 
 /**
  * @author louis.gueye@gmail.com

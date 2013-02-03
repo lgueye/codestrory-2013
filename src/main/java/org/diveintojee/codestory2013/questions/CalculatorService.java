@@ -1,7 +1,6 @@
 package org.diveintojee.codestory2013.questions;
 
 import com.google.common.base.CharMatcher;
-
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

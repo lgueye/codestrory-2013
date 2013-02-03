@@ -21,52 +21,46 @@ public class JajascriptService {
         // scan each hour for departures, starting from the first hour
         Map<Integer, Plan> bestPlanByHour = new HashMap<Integer, Plan>();
         for (int hour = 0; hour <= maxHour; hour++) {
-            System.out.println("hour = " + hour);
-            Rent bestForhour = null;
             for (Rent rent : rents) {
                 // Only interested in rents who start at hour
                 if (rent.startsAt(hour)) {
-                    if (rent.hasHigherAmount(bestForhour)) {
-                        bestForhour = rent;
+                    // Find plans whose end is less or equal than current rent's start date
+                    List<Plan> candidatePlans = findAppendablePlans(hour, bestPlanByHour);
+                    if (candidatePlans.isEmpty()) {
+                        Plan plan = new Plan(Lists.<Rent>newLinkedList());
+                        candidatePlans.add(plan);
+                    }
+                    for (Plan candidatePlan : candidatePlans) {
+                        Plan tmp = Plan.fromPlan(candidatePlan);
+                        tmp.addRent(rent);
+                        int end = tmp.getEnd();
+                        Plan existingPlan = bestPlanByHour.get(end);
+                        if (existingPlan == null) bestPlanByHour.put(end, tmp);
+                        else {
+                            if (tmp.compareTo(existingPlan) > 0) bestPlanByHour.put(end, tmp);
+                        }
                     }
                 }
             }
-
-            if (bestForhour == null) {
-                final Plan best = getBest(bestPlanByHour);
-                bestPlanByHour.put(best.getEnd(), best);
-                continue;
-            }
-
-            Plan appendablePlan = bestPlanByHour.get(hour);
-            // Tail
-            if (appendablePlan == null) {
-                appendablePlan = new Plan(Lists.<Rent>newLinkedList());
-            }
-            appendablePlan.addRent(bestForhour);
-            final int conflictingHour = appendablePlan.getEnd();
-            System.out.println("conflictingHour = " + conflictingHour);
-            Plan conflict = bestPlanByHour.get(conflictingHour);
-            if (hour==5){
-              System.out.println("conflict = " + conflict);
-              System.out.println("appendablePlan = " + appendablePlan);
-            }
-            if (conflict == null || appendablePlan.compareTo(conflict) > 0) bestPlanByHour.put(conflictingHour, appendablePlan);
-
-            System.out.println("bestPlanByHour = " + bestPlanByHour);
-
         }
-        final Plan best = getBest(bestPlanByHour);
-        System.out.println(bestPlanByHour);
-        System.out.println("optimize took = " + (System.currentTimeMillis() - start) + " ms");
+        Plan best = getBest(bestPlanByHour);
+        System.out.println("resolve took = " + (System.currentTimeMillis() - start) + " ms");
         return best;
 
+    }
+
+    private List<Plan> findAppendablePlans(int hour, Map<Integer, Plan> bestPlanByHour) {
+        List<Plan> list = Lists.newLinkedList();
+        for (Integer end : bestPlanByHour.keySet()) {
+            if (end <= hour) list.add(bestPlanByHour.get(end));
+        }
+        return list;
     }
 
     private Plan getBest(Map<Integer, Plan> bestPlanByHour) {
         final List<Plan> plans = Lists.newArrayList(bestPlanByHour.values());
         Collections.sort(plans);
-        return plans.get(0);
+        return plans.get(bestPlanByHour.size() - 1);
     }
 
     int resolveMaxHour(List<Rent> rents) {
