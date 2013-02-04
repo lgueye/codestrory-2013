@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 
 /**
  * @author louis.gueye@gmail.com
@@ -19,7 +18,7 @@ public class JajascriptService {
 
     public Plan optimize(List<Rent> rents) {
         long start = System.currentTimeMillis();
-        Map<Integer, List<Rent>> rentsByHour = groupRentsByHour(rents);
+        Map<Integer, List<Rent>> rentsByHour = groupRentsByStartHour(rents);
         final List<Integer> effectiveHours = Lists.newArrayList(rentsByHour.keySet());
         Collections.sort(effectiveHours);
         Map<Integer, Plan> bestPlanByHour = new HashMap<Integer, Plan>();
@@ -55,7 +54,7 @@ public class JajascriptService {
 
     }
 
-    private Map<Integer, List<Rent>> groupRentsByHour(List<Rent> rents) {
+    private Map<Integer, List<Rent>> groupRentsByStartHour(List<Rent> rents) {
         Map<Integer, List<Rent>> rentsByHour = Maps.newHashMap();
         for (Rent rent : rents) {
             int start = rent.getStart();
