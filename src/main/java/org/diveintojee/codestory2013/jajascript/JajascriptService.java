@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,25 +28,22 @@ public class JajascriptService {
             List<Rent> rentsForHour = rentsByHour.get(hour);
             if (rentsForHour == null) continue;
             for (Rent rent : rentsForHour) {
-                // Find plans whose end is less or equal than current rent's start date
-                List<Plan> candidatePlans = findAppendablePlans(hour, bestPlanByHour);
-                if (candidatePlans.isEmpty()) {
-                    Plan plan = new Plan(Lists.<Rent>newLinkedList());
-                    candidatePlans.add(plan);
-                }
-                for (Plan candidatePlan : candidatePlans) {
-                    Plan tmp = Plan.fromPlan(candidatePlan);
-                    tmp.addRent(rent);
-                    int end = tmp.getEnd();
-                    Plan existingPlan = bestPlanByHour.get(end);
-                    if (existingPlan == null) {
+                // Find the most profitable plan whose end is less or equal than current rent's start date
+                Plan candidatePlan = findMostProfitableAppendablePlan(hour, bestPlanByHour);
+                Plan tmp = Plan.fromPlan(candidatePlan);
+                tmp.addRent(rent);
+                int end = tmp.getEnd();
+                Plan existingPlan = bestPlanByHour.get(end);
+                if (existingPlan == null) {
+                    removePlansBefore(hour, bestPlanByHour);
+                    bestPlanByHour.put(end, tmp);
+                } else {
+                    if (tmp.compareTo(existingPlan) < 0) {
+                        removePlansBefore(hour, bestPlanByHour);
                         bestPlanByHour.put(end, tmp);
-                    } else {
-                        if (tmp.compareTo(existingPlan) < 0) bestPlanByHour.put(end, tmp);
                     }
                 }
             }
-
         }
 
         Plan best = getBest(bestPlanByHour);
@@ -54,7 +52,16 @@ public class JajascriptService {
 
     }
 
-    private Map<Integer, List<Rent>> groupRentsByStartHour(List<Rent> rents) {
+  private void removePlansBefore(Integer hour, Map<Integer, Plan> bestPlanByHour) {
+      for(Iterator<Map.Entry<Integer,Plan>> it = bestPlanByHour.entrySet().iterator();it.hasNext();){
+          Map.Entry<Integer, Plan> entry = it.next();
+          if (entry.getKey() <= hour) {
+              it.remove();
+          }
+      }
+  }
+
+  private Map<Integer, List<Rent>> groupRentsByStartHour(List<Rent> rents) {
         Map<Integer, List<Rent>> rentsByHour = Maps.newHashMap();
         for (Rent rent : rents) {
             int start = rent.getStart();
@@ -69,9 +76,23 @@ public class JajascriptService {
     private List<Plan> findAppendablePlans(int hour, Map<Integer, Plan> bestPlanByHour) {
         List<Plan> list = Lists.newArrayList();
         for (Integer end : bestPlanByHour.keySet()) {
-            if (end <= hour) list.add(bestPlanByHour.get(end));
+            if (end <= hour) {
+              final Plan plan = bestPlanByHour.get(end);
+              list.add(plan);
+            }
         }
         return list;
+    }
+
+    private Plan findMostProfitableAppendablePlan(int hour, Map<Integer, Plan> bestPlanByHour) {
+        Plan best = new Plan(Lists.<Rent>newArrayList());
+        for (Integer end : bestPlanByHour.keySet()) {
+            if (end <= hour) {
+              final Plan plan = bestPlanByHour.get(end);
+              if (best == null || plan.compareTo(best) < 0) best = plan;
+            }
+        }
+        return best;
     }
 
     private Plan getBest(Map<Integer, Plan> bestPlanByHour) {

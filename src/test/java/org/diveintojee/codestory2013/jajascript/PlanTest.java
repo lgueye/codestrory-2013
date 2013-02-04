@@ -17,6 +17,6 @@ public class PlanTest {
         planA.addRent(a);
         Plan planB = new Plan(Lists.<Rent>newArrayList());
         planB.addRent(b);
-        assertTrue(planB.compareTo(planA) > 0);
+        assertTrue(planB.compareTo(planA) < 0);
     }
 }

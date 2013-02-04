@@ -20,8 +20,11 @@ public class Plan implements Serializable, Comparable<Plan> {
         this.rents = rents;
     }
 
-    public static Plan fromPlan(Plan plan) {
-        Plan tmp = new Plan(Lists.<Rent>newLinkedList());
+  public Plan() {
+  }
+
+  public static Plan fromPlan(Plan plan) {
+        Plan tmp = new Plan(Lists.<Rent>newArrayList());
         for (Rent rent : plan.getRents()) {
             tmp.addRent(rent);
         }
@@ -89,6 +92,7 @@ public class Plan implements Serializable, Comparable<Plan> {
                 '}';
     }
 
+    @JsonIgnore
     public List<Rent> getRents() {
         return rents;
     }
