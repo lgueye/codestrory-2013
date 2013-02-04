@@ -19,6 +19,7 @@ public class JajascriptService {
 
     public Plan optimize(List<Rent> rents) {
         long start = System.currentTimeMillis();
+        Collections.sort(rents);
         Map<Integer, List<Rent>> rentsByHour = groupRentsByStartHour(rents);
         final List<Integer> effectiveHours = Lists.newArrayList(rentsByHour.keySet());
         Collections.sort(effectiveHours);
