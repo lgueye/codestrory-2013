@@ -62,19 +62,4 @@ public class JajascriptServiceTest {
         Plan solution = underTest.optimize(rents);
         assertEquals(expected, solution);
     }
-
-    @Test
-    public void resolveMaxHourShouldSucceed() {
-        Rent a = new Rent("a", 0, 5, 6);
-        Rent b = new Rent("b", 4, 2, 9);
-        Rent c = new Rent("c", 5, 10, 17);
-        Rent d = new Rent("d", 6, 5, 11);
-        Rent e = new Rent("e", 6, 4, 11);
-        Rent f = new Rent("f", 11, 2, 7);
-        List<Rent> rents = Lists.newArrayList(a, b, c, d, e, f);
-        int expected = 15;
-        int result = underTest.resolveMaxHour(rents);
-        assertTrue(expected == result);
-
-    }
 }

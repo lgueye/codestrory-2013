@@ -52,7 +52,7 @@ public class Plan implements Serializable, Comparable<Plan> {
     }
 
     public int compareTo(Plan other) {
-        return this.getRevenue() - other.getRevenue();
+        return other.getRevenue() - this.getRevenue();
     }
 
     @JsonIgnore
