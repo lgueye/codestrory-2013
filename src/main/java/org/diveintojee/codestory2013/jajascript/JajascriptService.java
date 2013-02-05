@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -29,20 +30,24 @@ public class JajascriptService {
             List<Rent> rentsForHour = rentsByHour.get(hour);
             if (rentsForHour == null) continue;
             for (Rent rent : rentsForHour) {
-                // Find the most profitable plan whose end is less or equal than current rent's start date
-                Plan candidatePlan = findMostProfitableAppendablePlan(hour, bestPlanByHour);
-                Plan tmp = Plan.fromPlan(candidatePlan);
-                tmp.addRent(rent);
-                int end = tmp.getEnd();
-                Plan existingPlan = bestPlanByHour.get(end);
-                if (existingPlan == null) {
-                    removePlansBefore(hour, bestPlanByHour);
-                    bestPlanByHour.put(end, tmp);
-                } else {
-                    if (tmp.compareTo(existingPlan) < 0) {
-                        removePlansBefore(hour, bestPlanByHour);
+                // Find plans whose end is less or equal than current rent's start date
+                List<Plan> candidatePlans = findAppendablePlans(hour, bestPlanByHour);
+                if (candidatePlans.isEmpty()) {
+                  candidatePlans.add(new Plan(Lists.<Rent>newArrayList()));
+                }
+                for (Plan candidatePlan : candidatePlans) {
+                    Plan tmp = Plan.fromPlan(candidatePlan);
+                    tmp.addRent(rent);
+                    int end = tmp.getEnd();
+                    Plan existingPlan = bestPlanByHour.get(end);
+                    if (existingPlan == null) {
                         bestPlanByHour.put(end, tmp);
+                    } else {
+                        if (tmp.compareTo(existingPlan) < 0) {
+                            bestPlanByHour.put(end, tmp);
+                        }
                     }
+                    removeEquivalentPlans(tmp, bestPlanByHour);
                 }
             }
         }
@@ -52,6 +57,28 @@ public class JajascriptService {
         return best;
 
     }
+
+  private void removeEquivalentPlans(Plan tmp, Map<Integer, Plan> bestPlanByHour) {
+    int end = tmp.getEnd();
+    for(Iterator<Map.Entry<Integer,Plan>> it = bestPlanByHour.entrySet().iterator();it.hasNext();){
+        Map.Entry<Integer, Plan> entry = it.next();
+        final Plan value = entry.getValue();
+        final Integer key = entry.getKey();
+        if (key <= end && tmp.compareTo(value) < 0) {
+            it.remove();
+        }
+    }
+  }
+
+  private Rent findBestRentForHour(List<Rent> rentsForHour) {
+    Collections.sort(rentsForHour, new Comparator<Rent>() {
+      @Override
+      public int compare(Rent o1, Rent o2) {
+        return o2.getAmount()-o1.getAmount();
+      }
+    });
+    return rentsForHour.get(0);  //To change body of created methods use File | Settings | File Templates.
+  }
 
   private void removePlansBefore(Integer hour, Map<Integer, Plan> bestPlanByHour) {
       for(Iterator<Map.Entry<Integer,Plan>> it = bestPlanByHour.entrySet().iterator();it.hasNext();){

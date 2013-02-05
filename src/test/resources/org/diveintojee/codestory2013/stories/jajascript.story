@@ -23,8 +23,8 @@ Scenario: the server should be able to provide the most optimized solution 2
 When the server is asked to optimize the provided payload:
 | vol                       | depart | duree | prix |
 | dark-playwright-49        | 0      | 5     | 17   |
-| swift-whirlwind-45        | 2      | 2     | 15   |
 | curious-toupee-34         | 0      | 4     | 2    |
+| swift-whirlwind-45        | 2      | 2     | 15   |
 | wide-eyed-workaholic-58   | 3      | 1     | 8    |
 | shy-vengeance-31          | 3      | 14    | 4    |
 | long-alcohol-70           | 6      | 8     | 24   |
@@ -33,38 +33,38 @@ When the server is asked to optimize the provided payload:
 | eager-arsonist-2          | 7      | 9     | 6    |
 | tender-knitter-21         | 7      | 15    | 5    |
 | Early-hailstorm-74        | 10     | 10    | 21   |
+| hollow-slumlord-84        | 11     | 4     | 12   |
 | modern-lava-64            | 14     | 9     | 21   |
 | great-bather-46           | 14     | 6     | 6    |
-| hollow-slumlord-84        | 11     | 4     | 12   |
 | round-tombstone-50        | 14     | 3     | 4    |
+| repulsive-saltwater-80    | 16     | 11    | 3    |
 | silent-shotgun-20         | 17     | 9     | 2    |
 | obedient-squirrel-22      | 19     | 3     | 6    |
 | bad-developer-97          | 19     | 2     | 5    |
 | dead-bead-29              | 19     | 10    | 7    |
-| repulsive-saltwater-80    | 16     | 11    | 3    |
-| quick-blackjack-8         | 22     | 8     | 23   |
-| harsh-sword-34            | 23     | 1     | 23   |
-| joyous-yodeler-88         | 21     | 3     | 8    |
 | clever-weakling-38        | 20     | 7     | 7    |
 | condemned-minion-8        | 20     | 12    | 1    |
+| joyous-yodeler-88         | 21     | 3     | 8    |
+| quick-blackjack-8         | 22     | 8     | 23   |
+| harsh-sword-34            | 23     | 1     | 23   |
+| puny-judo-34              | 27     | 1     | 2    |
 | big-grail-71              | 28     | 10    | 4    |
 | stupid-reformer-69        | 29     | 3     | 12   |
 | tender-quagmire-69        | 29     | 8     | 4    |
 | modern-corn-95            | 29     | 3     | 6    |
-| puny-judo-34              | 27     | 1     | 2    |
-| blue-eyed-fishnet-70      | 32     | 4     | 22   |
 | breakable-switchhitter-68 | 30     | 10    | 15   |
 | young-revolutionary-2     | 30     | 7     | 10   |
 | open-fowl-8               | 31     | 5     | 10   |
 | important-temper-21       | 31     | 3     | 7    |
-| homeless-warship-63       | 39     | 8     | 16   |
+| blue-eyed-fishnet-70      | 32     | 4     | 22   |
 | bad-instep-1              | 36     | 8     | 21   |
-| hushed-fencer-85          | 37     | 1     | 8    |
 | brainy-stereo-9           | 35     | 1     | 11   |
+| hushed-fencer-85          | 37     | 1     | 8    |
+| homeless-warship-63       | 39     | 8     | 16   |
 | modern-oak-72             | 38     | 11    | 2    |
+| weary-bonbon-33           | 40     | 9     | 1    |
 | defeated-plaster-4        | 41     | 3     | 14   |
 | jittery-letter-36         | 43     | 3     | 5    |
-| weary-bonbon-33           | 40     | 9     | 1    |
 | doubtful-jawbone-8        | 43     | 6     | 10   |
 | repulsive-teacup-84       | 43     | 2     | 1    |
 Then the response should be:
@@ -656,3 +656,5 @@ Then the response should be:
 | 200  | {"path":["miniature-saw-7","husky-cracker-30","cautious-knob-5","precious-fumble-59","ashamed-thumb-62","cruel-second-66","grumpy-harpsichord-88","bewildered-tournament-74","courageous-triceps-21","clean-cellar-69","easy-dealership-7","bright-bayonet-62","fancy-rover-29","hissing-xerography-84","gentle-cervix-14","immense-wuss-53","average-mint-56","splendid-sorceress-14","concerned-narrator-83","fancy-salmonella-24","important-surfer-41","agreeable-ginseng-18","swift-stream-15","delightful-partridge-51","stormy-sewage-8","helpless-jail-14","friendly-mumps-10","cautious-memo-96","breakable-rear-63","flat-mess-23","famous-spy-27","jealous-matt-93","clumsy-receiver-18","brave-scum-80","anxious-calf-66","slow-bicycle-59","modern-crumb-64","fast-whaler-12","helpless-morning-6","witty-lettuce-28","huge-gentry-47","alert-cave-6","skinny-barbecue-6","drab-coroner-10","obnoxious-gauze-47","low-reimbursement-14","purring-video-38","glamorous-switchboard-47","obedient-mouse-16","famous-permit-56","jolly-murderer-87","ill-pub-26","frightened-mouse-76","enthusiastic-limousine-56","cheerful-pimple-44","cruel-sperm-48","eager-toothache-63","fat-showdown-58","unsightly-statistics-94","odd-doughnut-93","thoughtful-registry-19","defeated-crab-33","innocent-texture-7","inexpensive-warfare-76","quaint-pup-68","energetic-birdbath-64","thundering-undershirt-5","wide-showdown-92","grumpy-mesquite-24","helpless-cruiser-81","great-condo-36","flat-colt-87","frantic-uterus-72","filthy-jewel-80","noisy-ballerina-87","wild-coliseum-12","squealing-marathon-22","rapid-bonus-99","pleasant-magnate-15","evil-reformer-34","powerful-supertanker-15","anxious-fluid-8","ugliest-coal-29","gigantic-tack-49","proud-violoncello-19","lovely-rank-55","scrawny-tenderloin-58","kind-temperature-36","defiant-gristle-23","narrow-star-97","funny-chestnut-12","nice-kindle-77","relieved-race-76","broad-program-70","witty-drop-95","wrong-photocopier-32","dark-emerald-62","sparkling-roundworm-55","clean-wallflower-47","old-fashioned-curl-36","charming-staple-62","Early-paperweight-98","difficult-butcher-98","great-variation-50","old-fashioned-violoncello-46","misty-madman-23","tall-saffron-97","elegant-poem-75","broad-lizard-94","energetic-flag-24","concerned-vacuum-24","flipped-out-mountaineer-27"],"gain":1680} |
 
 
+"path":["miniature-saw-7","husky-cracker-30","cautious-knob-5","precious-fumble-59","ashamed-thumb-62","cruel-second-66","grumpy-harpsichord-88","bewildered-tournament-74","courageous-triceps-21","clean-cellar-69","easy-dealership-7","foolish-dresser-26","fancy-rover-29","hissing-xerography-84","gentle-cervix-14","immense-wuss-53","average-mint-56","splendid-sorceress-14","concerned-narrator-83","fancy-salmonella-24","important-surfer-41","agreeable-ginseng-18","swift-stream-15","delightful-partridge-51","stormy-sewage-8","helpless-jail-14","friendly-mumps-10","cautious-memo-96","breakable-rear-63","flat-mess-23","famous-spy-27","jealous-matt-93","obedient-gunrunning-24","anxious-calf-66","slow-bicycle-59","modern-crumb-64","fast-whaler-12","helpless-morning-6","witty-lettuce-28","huge-gentry-47","alert-cave-6","skinny-barbecue-6","drab-coroner-10","obnoxious-gauze-47","low-reimbursement-14","purring-video-38","glamorous-switchboard-47","obedient-mouse-16","famous-permit-56","jolly-murderer-87","curious-vegetation-17","small-witch-84","dull-magnum-47","frightened-mouse-76","enthusiastic-limousine-56","cheerful-pimple-44","cruel-sperm-48","eager-toothache-63","fat-showdown-58","unsightly-statistics-94","tired-ale-64","thoughtful-registry-19","defeated-crab-33","innocent-texture-7","inexpensive-warfare-76","quaint-pup-68","energetic-birdbath-64","thundering-undershirt-5","wide-showdown-92","grumpy-mesquite-24","helpless-cruiser-81","great-condo-36","flat-colt-87","frantic-uterus-72","filthy-jewel-80","noisy-ballerina-87","wild-coliseum-12","squealing-marathon-22","rapid-bonus-99","pleasant-magnate-15","evil-reformer-34","powerful-supertanker-15","anxious-fluid-8","ugliest-coal-29","gigantic-tack-49","proud-violoncello-19","lovely-rank-55","scrawny-tenderloin-58","kind-temperature-36","defiant-gristle-23","narrow-star-97","funny-chestnut-12","nice-kindle-77","relieved-race-76","broad-program-70","witty-drop-95","wrong-photocopier-32","dark-emerald-62","sparkling-roundworm-55","clean-wallflower-47","old-fashioned-curl-36","charming-staple-62","Early-paperweight-98","difficult-butcher-98","great-variation-50","old-fashioned-violoncello-46","misty-madman-23","tall-saffron-97","elegant-poem-75","broad-lizard-94","energetic-flag-24","concerned-vacuum-24","flipped-out-mountaineer-27"],"gain":1680}
+"path":["miniature-saw-7","husky-cracker-30","cautious-knob-5","precious-fumble-59","ashamed-thumb-62","cruel-second-66","grumpy-harpsichord-88","bewildered-tournament-74","courageous-triceps-21","clean-cellar-69","easy-dealership-7","bright-bayonet-62","fancy-rover-29","hissing-xerography-84","gentle-cervix-14","immense-wuss-53","average-mint-56","splendid-sorceress-14","concerned-narrator-83","fancy-salmonella-24","important-surfer-41","agreeable-ginseng-18","swift-stream-15","delightful-partridge-51","stormy-sewage-8","helpless-jail-14","friendly-mumps-10","cautious-memo-96","breakable-rear-63","flat-mess-23","famous-spy-27","jealous-matt-93","clumsy-receiver-18","brave-scum-80","anxious-calf-66","slow-bicycle-59","modern-crumb-64","fast-whaler-12","helpless-morning-6","witty-lettuce-28","huge-gentry-47","alert-cave-6","skinny-barbecue-6","drab-coroner-10","obnoxious-gauze-47","low-reimbursement-14","purring-video-38","glamorous-switchboard-47","obedient-mouse-16","famous-permit-56","jolly-murderer-87","ill-pub-26","frightened-mouse-76","enthusiastic-limousine-56","cheerful-pimple-44","cruel-sperm-48","eager-toothache-63","fat-showdown-58","unsightly-statistics-94","odd-doughnut-93","thoughtful-registry-19","defeated-crab-33","innocent-texture-7","inexpensive-warfare-76","quaint-pup-68","energetic-birdbath-64","thundering-undershirt-5","wide-showdown-92","grumpy-mesquite-24","helpless-cruiser-81","great-condo-36","flat-colt-87","frantic-uterus-72","filthy-jewel-80","noisy-ballerina-87","wild-coliseum-12","squealing-marathon-22","rapid-bonus-99","pleasant-magnate-15","evil-reformer-34","powerful-supertanker-15","anxious-fluid-8","ugliest-coal-29","gigantic-tack-49","proud-violoncello-19","lovely-rank-55","scrawny-tenderloin-58","kind-temperature-36","defiant-gristle-23","narrow-star-97","funny-chestnut-12","nice-kindle-77","relieved-race-76","broad-program-70","witty-drop-95","wrong-photocopier-32","dark-emerald-62","sparkling-roundworm-55","clean-wallflower-47","old-fashioned-curl-36","charming-staple-62","Early-paperweight-98","difficult-butcher-98","great-variation-50","old-fashioned-violoncello-46","misty-madman-23","tall-saffron-97","elegant-poem-75","broad-lizard-94","energetic-flag-24","concerned-vacuum-24","flipped-out-mountaineer-27"],"gain":1680
