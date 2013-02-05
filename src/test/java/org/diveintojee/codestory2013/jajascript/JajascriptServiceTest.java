@@ -30,7 +30,7 @@ public class JajascriptServiceTest {
         Rent e = new Rent("e", 6, 4, 11);
         Rent f = new Rent("f", 11, 2, 7);
         List<Rent> rents = Lists.newArrayList(a, b, c, d, e, f);
-        Plan expected = new Plan(Lists.newArrayList(b, e, f));
+        Plan expected = new Plan(Lists.newArrayList(b, d, f));
         Plan solution = underTest.optimize(rents);
         assertEquals(expected, solution);
     }

@@ -47,7 +47,7 @@ public class JajascriptService {
                             bestPlanByHour.put(end, tmp);
                         }
                     }
-                    removeEquivalentPlans(tmp, bestPlanByHour);
+                    removeEquivalentPlans(hour, tmp.getRevenue(), bestPlanByHour);
                 }
             }
         }
@@ -58,13 +58,12 @@ public class JajascriptService {
 
     }
 
-  private void removeEquivalentPlans(Plan tmp, Map<Integer, Plan> bestPlanByHour) {
-    int end = tmp.getEnd();
+  private void removeEquivalentPlans(int end, int revenue, Map<Integer, Plan> bestPlanByHour) {
     for(Iterator<Map.Entry<Integer,Plan>> it = bestPlanByHour.entrySet().iterator();it.hasNext();){
         Map.Entry<Integer, Plan> entry = it.next();
         final Plan value = entry.getValue();
         final Integer key = entry.getKey();
-        if (key <= end && tmp.compareTo(value) < 0) {
+        if (key <= end && value.getRevenue() < revenue) {
             it.remove();
         }
     }
