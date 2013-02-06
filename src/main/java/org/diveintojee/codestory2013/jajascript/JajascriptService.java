@@ -53,33 +53,42 @@ public class JajascriptService {
 
     public Plan optimize(List<Rent> rents) {
         long start = System.currentTimeMillis();
-        Collections.sort(rents, new Comparator<Rent>() {
-            @Override
-            public int compare(Rent o1, Rent o2) {
-                return o2.getEnd() - o1.getEnd();
-            }
-        });
-        int maxHour = rents.get(0).getEnd();
+        int maxHour = resolvMaxHour(rents);
         Collections.sort(rents);
         Map<Integer, List<Rent>> rentsByHour = groupRentsByStartHour(rents);
         Map<Integer, Plan> bestPlanByHour = new HashMap<Integer, Plan>();
         // scan each hour for departures, starting from the first hour
-
         for (int hour = 0; hour <= maxHour; hour++) {
             List<Rent> rentsForHour = rentsByHour.get(hour);
             if (rentsForHour == null) continue;
-            Rent mostProfitableRentAtHour = findMostProfitableRentAtHour(rentsForHour);
-            Plan mostProfitablePlanAtHour = findMostProfitablePlanAtHour(hour, bestPlanByHour);
+            //Rent mostProfitableRentAtHour = findMostProfitableRentAtHour(rentsForHour);
+          Plan mostProfitablePlanAtHour = findMostProfitablePlanAtHour(hour, bestPlanByHour);
+          for (Rent rent : rentsForHour) {
+            Plan candidate;
             if (mostProfitablePlanAtHour == null) {
-                mostProfitablePlanAtHour = new Plan(Lists.<Rent>newArrayList());
+                candidate = new Plan(Lists.<Rent>newArrayList());
+            } else {
+              candidate = Plan.fromPlan(mostProfitablePlanAtHour);
             }
-            mostProfitablePlanAtHour.addRent(mostProfitableRentAtHour);
+            candidate.addRent(rent);
             //System.out.println("mostProfitablePlanAtHour " + hour + "= " + mostProfitablePlanAtHour);
-            int end = mostProfitablePlanAtHour.getEnd();
+            int end = candidate.getEnd();
             Plan existingPlanAtHour = bestPlanByHour.get(end);
-            if (existingPlanAtHour == null || mostProfitablePlanAtHour.compareTo(existingPlanAtHour) > 0) {
-                bestPlanByHour.put(end, mostProfitablePlanAtHour);
+            if (existingPlanAtHour == null || candidate.compareTo(existingPlanAtHour) > 0) {
+                bestPlanByHour.put(end, candidate);
             }
+          }
+//            Plan mostProfitablePlanAtHour = findMostProfitablePlanAtHour(hour, bestPlanByHour);
+//            if (mostProfitablePlanAtHour == null) {
+//                mostProfitablePlanAtHour = new Plan(Lists.<Rent>newArrayList());
+//            }
+//            mostProfitablePlanAtHour.addRent(mostProfitableRentAtHour);
+//            //System.out.println("mostProfitablePlanAtHour " + hour + "= " + mostProfitablePlanAtHour);
+//            int end = mostProfitablePlanAtHour.getEnd();
+//            Plan existingPlanAtHour = bestPlanByHour.get(end);
+//            if (existingPlanAtHour == null || mostProfitablePlanAtHour.compareTo(existingPlanAtHour) > 0) {
+//                bestPlanByHour.put(end, mostProfitablePlanAtHour);
+//            }
             //removePlansAfter(bestPlanByHour, mostProfitablePlanAtHour);
         }
 
@@ -87,6 +96,16 @@ public class JajascriptService {
         System.out.println("resolve took = " + (System.currentTimeMillis() - start) + " ms");
         return best;
 
+    }
+
+    int resolvMaxHour(List<Rent> rents) {
+        Collections.sort(rents, new Comparator<Rent>() {
+            @Override
+            public int compare(Rent o1, Rent o2) {
+              return o2.getEnd() - o1.getEnd();
+            }
+        });
+        return rents.get(0).getEnd();
     }
 
     Rent findMostProfitableRentAtHour(List<Rent> rentsForHour) {

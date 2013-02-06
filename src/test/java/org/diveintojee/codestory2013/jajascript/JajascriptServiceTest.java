@@ -23,6 +23,16 @@ public class JajascriptServiceTest {
     }
 
     @Test
+    public void resolveMaxHourShouldSucceed() {
+      Rent a = new Rent("a", 0, 5, 6);
+      Rent b = new Rent("b", 4, 2, 9);
+      List<Rent> rents = Lists.newArrayList(a, b);
+      int actual = underTest.resolvMaxHour(rents);
+      int expected = 6;
+      assertEquals(expected, actual);
+    }
+
+    @Test
     public void optimizeShouldSucceed1() {
         Rent a = new Rent("a", 0, 5, 6);
         Rent b = new Rent("b", 4, 2, 9);
@@ -31,7 +41,7 @@ public class JajascriptServiceTest {
         Rent e = new Rent("e", 6, 4, 11);
         Rent f = new Rent("f", 11, 2, 7);
         List<Rent> rents = Lists.newArrayList(a, b, c, d, e, f);
-        Plan expected = new Plan(Lists.newArrayList(b, d, f));
+        Plan expected = new Plan(Lists.newArrayList(b, e, f));
         Plan solution = underTest.optimize(rents);
         assertEquals(expected, solution);
     }
@@ -157,7 +167,8 @@ public class JajascriptServiceTest {
         Rent as = new Rent("doubtful-jawbone-8",43, 6, 10);
         Rent at = new Rent("repulsive-teacup-84",43, 2, 1);
         List<Rent> rents = Lists.<Rent>newArrayList(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ab,ac,ad,ae, af, ag, ah, ai, aj, ak, al, am, an, ao, ap, aq, ar, as, at);
-        assertEquals(new Plan(Lists.newArrayList(a, f, m, y,z, ac, aj, am, an)), underTest.optimize(rents));
-
+        final Plan expected = new Plan(Lists.newArrayList(a, f, m, y, z, ac, aj, am, an));
+        final Plan actual = underTest.optimize(rents);
+        assertEquals(expected, actual);
     }
 }

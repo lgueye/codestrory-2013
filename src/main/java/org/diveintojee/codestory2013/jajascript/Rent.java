@@ -75,10 +75,6 @@ public class Rent implements Serializable, Comparable<Rent> {
         this.amount = amount;
     }
 
-    public boolean startsAt(int hour) {
-        return this.start == hour;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
