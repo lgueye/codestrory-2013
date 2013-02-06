@@ -34,14 +34,14 @@ public class Plan implements Serializable {
     public Plan addRent(Rent rent) {
       List<Rent> newRents = Lists.newArrayList(rent);
       newRents.addAll(rents);
-      return new Plan(newRents, this.gain + rent.getPRIX());
+      return new Plan(newRents, this.gain + rent.getAmount());
     }
 
     public Long getGain() {
       if (this.gain == -1) {
         long gain = 0;
         for (Rent rent : rents) {
-          gain += rent.getPRIX();
+          gain += rent.getAmount();
         }
         this.gain = gain;
       }
@@ -54,7 +54,7 @@ public class Plan implements Serializable {
         Collection<String> names = Collections2.transform(copy, new Function<Rent, String>() {
             @Override
             public String apply(Rent input) {
-                return input.getVOL();
+                return input.getName();
             }
         });
 

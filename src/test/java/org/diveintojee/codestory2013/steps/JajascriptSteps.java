@@ -66,7 +66,7 @@ public class JajascriptSteps extends BackendBaseSteps {
             Rent rent = new Rent(vol,
                     Integer.valueOf(depart),
                     Integer.valueOf(duree),
-                    Long.valueOf(prix));
+                    Integer.valueOf(prix));
             rents[i] = rent;
         }
         return rents;
