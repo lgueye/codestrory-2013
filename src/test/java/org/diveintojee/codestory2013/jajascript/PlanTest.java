@@ -9,14 +9,16 @@ import static org.junit.Assert.assertTrue;
  * @author louis.gueye@gmail.com
  */
 public class PlanTest {
+
     @Test
     public void compareToShouldSucceed() throws Exception {
-        Rent a = new Rent("a", 0, 5, 6);
-        Rent b = new Rent("b", 4, 2, 9);
         Plan planA = new Plan(Lists.<Rent>newArrayList());
+        Rent a = new Rent("a", 0, 5, 6);
         planA.addRent(a);
         Plan planB = new Plan(Lists.<Rent>newArrayList());
+        Rent b = new Rent("b", 4, 2, 9);
         planB.addRent(b);
-        assertTrue(planB.compareTo(planA) < 0);
+        assertTrue(planB.compareTo(planA) > 0);
     }
+
 }

@@ -20,10 +20,10 @@ public class Plan implements Serializable, Comparable<Plan> {
         this.rents = rents;
     }
 
-  public Plan() {
-  }
+    public Plan() {
+    }
 
-  public static Plan fromPlan(Plan plan) {
+    public static Plan fromPlan(Plan plan) {
         Plan tmp = new Plan(Lists.<Rent>newArrayList());
         for (Rent rent : plan.getRents()) {
             tmp.addRent(rent);
@@ -55,7 +55,7 @@ public class Plan implements Serializable, Comparable<Plan> {
     }
 
     public int compareTo(Plan other) {
-        return other.getRevenue() - this.getRevenue();
+        return this.getRevenue() - other.getRevenue();
     }
 
     @JsonIgnore
@@ -73,7 +73,6 @@ public class Plan implements Serializable, Comparable<Plan> {
         if (o == null || getClass() != o.getClass()) return false;
 
         Plan plan = (Plan) o;
-
         if (!rents.equals(plan.rents)) return false;
 
         return true;
