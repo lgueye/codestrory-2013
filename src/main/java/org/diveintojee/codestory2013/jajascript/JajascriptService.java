@@ -2,9 +2,15 @@ package org.diveintojee.codestory2013.jajascript;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author louis.gueye@gmail.com
@@ -12,173 +18,127 @@ import java.util.*;
 @Component
 public class JajascriptService {
 
-//    public Plan optimize(List<Rent> rents) {
-//        long start = System.currentTimeMillis();
-//        Collections.sort(rents);
-//        Map<Integer, List<Rent>> rentsByHour = groupRentsByStartHour(rents);
-//        final List<Integer> effectiveHours = Lists.newArrayList(rentsByHour.keySet());
-//        Collections.sort(effectiveHours);
-//        Map<Integer, Plan> bestPlanByHour = new HashMap<Integer, Plan>();
-//        // scan each hour for departures, starting from the first hour
-//        for (Integer hour : effectiveHours) {
-//            List<Rent> rentsForHour = rentsByHour.get(hour);
-//            if (rentsForHour == null) continue;
-//            for (Rent rent : rentsForHour) {
-//                // Find plans whose end is less or equal than current rent's start date
-//                List<Plan> candidatePlans = findAppendablePlans(hour, bestPlanByHour);
-//                if (candidatePlans.isEmpty()) {
-//                    candidatePlans.add(new Plan(Lists.<Rent>newArrayList()));
-//                }
-//                for (Plan candidatePlan : candidatePlans) {
-//                    Plan tmp = Plan.fromPlan(candidatePlan);
-//                    tmp.addRent(rent);
-//                    int end = tmp.getEnd();
-//                    Plan existingPlan = bestPlanByHour.get(end);
-//                    if (existingPlan == null) {
-//                        bestPlanByHour.put(end, tmp);
-//                    } else {
-//                        if (tmp.compareTo(existingPlan) < 0) {
-//                            bestPlanByHour.put(end, tmp);
-//                        }
-//                    }
-//                }
-//            }
+//  public Plan optimize(List<Rent> rents) {
+//    long start = System.currentTimeMillis();
+//    int maxHour = resolvMaxHour(rents);
+//    Collections.sort(rents);
+//    Map<Integer, List<Rent>> rentsByHour = groupRentsByStartHour(rents);
+//    Map<Integer, Plan> bestPlanByHour = new HashMap<Integer, Plan>();
+//    // scan each hour for departures, starting from the first hour
+//    for (int hour = 0; hour <= maxHour; hour++) {
+//      List<Rent> rentsForHour = rentsByHour.get(hour);
+//      // No rent at given hour, continue
+//      if (rentsForHour == null) {
+//        continue;
+//      }
+//      Plan mostProfitablePlanAtHour = findMostProfitablePlanAtHour(hour, bestPlanByHour);
+//      for (Rent rent : rentsForHour) {
+//        Plan candidate;
+//        if (mostProfitablePlanAtHour == null) {
+//          candidate = new Plan(Lists.<Rent>newArrayList());
+//        } else {
+//          candidate = Plan.fromPlan(mostProfitablePlanAtHour);
 //        }
-//
-//        Plan best = getBest(bestPlanByHour);
-//        System.out.println("resolve took = " + (System.currentTimeMillis() - start) + " ms");
-//        return best;
-//
+//        candidate.addRent(rent);
+//        int end = candidate.getEnd();
+//        Plan existingPlanAtHour = bestPlanByHour.get(end);
+//        if (existingPlanAtHour == null || candidate.compareTo(existingPlanAtHour) > 0) {
+//          bestPlanByHour.put(end, candidate);
+//        }
+//      }
 //    }
+//    Plan best = getBest(bestPlanByHour);
+//    System.out.println("resolve took = " + (System.currentTimeMillis() - start) + " ms");
+//    return best;
+//  }
 
-    public Plan optimize(List<Rent> rents) {
-        long start = System.currentTimeMillis();
-        int maxHour = resolvMaxHour(rents);
-        Collections.sort(rents);
-        Map<Integer, List<Rent>> rentsByHour = groupRentsByStartHour(rents);
-        Map<Integer, Plan> bestPlanByHour = new HashMap<Integer, Plan>();
-        // scan each hour for departures, starting from the first hour
-        for (int hour = 0; hour <= maxHour; hour++) {
-            List<Rent> rentsForHour = rentsByHour.get(hour);
-            if (rentsForHour == null) continue;
-            //Rent mostProfitableRentAtHour = findMostProfitableRentAtHour(rentsForHour);
-          Plan mostProfitablePlanAtHour = findMostProfitablePlanAtHour(hour, bestPlanByHour);
-          for (Rent rent : rentsForHour) {
-            Plan candidate;
-            if (mostProfitablePlanAtHour == null) {
-                candidate = new Plan(Lists.<Rent>newArrayList());
-            } else {
-              candidate = Plan.fromPlan(mostProfitablePlanAtHour);
-            }
-            candidate.addRent(rent);
-            //System.out.println("mostProfitablePlanAtHour " + hour + "= " + mostProfitablePlanAtHour);
-            int end = candidate.getEnd();
-            Plan existingPlanAtHour = bestPlanByHour.get(end);
-            if (existingPlanAtHour == null || candidate.compareTo(existingPlanAtHour) > 0) {
-                bestPlanByHour.put(end, candidate);
-            }
-          }
-//            Plan mostProfitablePlanAtHour = findMostProfitablePlanAtHour(hour, bestPlanByHour);
-//            if (mostProfitablePlanAtHour == null) {
-//                mostProfitablePlanAtHour = new Plan(Lists.<Rent>newArrayList());
-//            }
-//            mostProfitablePlanAtHour.addRent(mostProfitableRentAtHour);
-//            //System.out.println("mostProfitablePlanAtHour " + hour + "= " + mostProfitablePlanAtHour);
-//            int end = mostProfitablePlanAtHour.getEnd();
-//            Plan existingPlanAtHour = bestPlanByHour.get(end);
-//            if (existingPlanAtHour == null || mostProfitablePlanAtHour.compareTo(existingPlanAtHour) > 0) {
-//                bestPlanByHour.put(end, mostProfitablePlanAtHour);
-//            }
-            //removePlansAfter(bestPlanByHour, mostProfitablePlanAtHour);
-        }
 
-        Plan best = getBest(bestPlanByHour);
-        System.out.println("resolve took = " + (System.currentTimeMillis() - start) + " ms");
-        return best;
+  /**
+   * Weighted interval scheduling problem
+   * plan(i) = max{w[i] + value(j), value(i+1)}
+   *
+   *
+   * @param rents
+   * @return
+   */
+  public Plan optimize(List<Rent> rents) {
+    rents = Lists.newLinkedList(rents);
 
+    Collections.sort(rents);
+    TreeMap<Integer, Rent> endDateRents = new TreeMap<Integer, Rent>();
+    Map<Rent, Plan> solutions = new HashMap<Rent, Plan>();
+
+    Rent previousRent = null;
+    for (Rent rent : rents) {
+      Plan previousRentSolution = previousRent != null ? solutions.get(previousRent) : null;
+
+      Map.Entry<Integer, Rent> entry = endDateRents.floorEntry(rent.getStart());
+      Rent lastNonConflictingRent = entry != null ? entry.getValue() : null;
+      Plan solutionWithCurrentRent = lastNonConflictingRent != null ? solutions.get(lastNonConflictingRent).addRent(rent) : new Plan(rent);
+
+      Plan bestPlan;
+      if (previousRentSolution != null) {
+        bestPlan = previousRentSolution.compareTo(solutionWithCurrentRent) > 0 ? previousRentSolution : solutionWithCurrentRent;
+      } else {
+        bestPlan = solutionWithCurrentRent;
+      }
+      solutions.put(rent, bestPlan);
+
+      endDateRents.put(rent.getEnd(), rent);
+      previousRent = rent;
     }
 
-    int resolvMaxHour(List<Rent> rents) {
-        Collections.sort(rents, new Comparator<Rent>() {
-            @Override
-            public int compare(Rent o1, Rent o2) {
-              return o2.getEnd() - o1.getEnd();
-            }
-        });
-        return rents.get(0).getEnd();
-    }
+    return solutions.get(previousRent);
+  }
 
-    Rent findMostProfitableRentAtHour(List<Rent> rentsForHour) {
-        Collections.sort(rentsForHour, new Comparator<Rent>() {
-            @Override
-            public int compare(Rent o1, Rent o2) {
-                return o2.getAmount() - o1.getAmount();
-            }
-        });
-        Rent rent = rentsForHour.get(0);
-        //System.out.println("most profitable rent for hour = " + rent);
-        return rent;
-    }
+//  int resolvMaxHour(List<Rent> rents) {
+//    Collections.sort(rents, new Comparator<Rent>() {
+//      @Override
+//      public int compare(Rent o1, Rent o2) {
+//        return o2.getEnd() - o1.getEnd();
+//      }
+//    });
+//    return rents.get(0).getEnd();
+//  }
+//
+//  Rent findMostProfitableRentAtHour(List<Rent> rentsForHour) {
+//    Collections.sort(rentsForHour, new Comparator<Rent>() {
+//      @Override
+//      public int compare(Rent o1, Rent o2) {
+//        return o2.getAmount() - o1.getAmount();
+//      }
+//    });
+//    Rent rent = rentsForHour.get(0);
+//    return rent;
+//  }
+//
+//  Map<Integer, List<Rent>> groupRentsByStartHour(List<Rent> rents) {
+//    Map<Integer, List<Rent>> rentsByHour = Maps.newHashMap();
+//    for (Rent rent : rents) {
+//      int start = rent.getStart();
+//      if (rentsByHour.get(start) == null) {
+//        rentsByHour.put(start, Lists.<Rent>newArrayList());
+//      }
+//      rentsByHour.get(start).add(rent);
+//    }
+//    return rentsByHour;
+//  }
+//
+//  Plan findMostProfitablePlanAtHour(int hour, Map<Integer, Plan> bestPlanByHour) {
+//    Plan best = null;
+//    for (Map.Entry<Integer, Plan> entry : bestPlanByHour.entrySet()) {
+//      Plan value = entry.getValue();
+//      if (value.getEnd() <= hour && (best == null || value.compareTo(best) > 0)) {
+//        best = Plan.fromPlan(value);
+//      }
+//    }
+//    return best;
+//  }
+//
+//  Plan getBest(Map<Integer, Plan> bestPlanByHour) {
+//    final List<Plan> plans = Lists.newArrayList(bestPlanByHour.values());
+//    Collections.sort(plans);
+//    return plans.get(plans.size() - 1);
+//  }
 
-    private void removeEquivalentPlans(int end, int revenue, Map<Integer, Plan> bestPlanByHour) {
-        for (Iterator<Map.Entry<Integer, Plan>> it = bestPlanByHour.entrySet().iterator(); it.hasNext(); ) {
-            Map.Entry<Integer, Plan> entry = it.next();
-            final Plan value = entry.getValue();
-            final Integer key = entry.getKey();
-            if (key <= end && value.getRevenue() < revenue) {
-                it.remove();
-            }
-        }
-    }
-
-    private void removePlansAfter(Map<Integer, Plan> bestPlanByHour, Plan mostProfitablePlanAtHour) {
-        for (Iterator<Map.Entry<Integer, Plan>> it = bestPlanByHour.entrySet().iterator(); it.hasNext(); ) {
-            Map.Entry<Integer, Plan> entry = it.next();
-            Integer end = entry.getKey();
-            Plan value = entry.getValue();
-            if (end >= mostProfitablePlanAtHour.getEnd() && value.compareTo(mostProfitablePlanAtHour) < 0 ) {
-                it.remove();
-            }
-        }
-    }
-
-    private Map<Integer, List<Rent>> groupRentsByStartHour(List<Rent> rents) {
-        Map<Integer, List<Rent>> rentsByHour = Maps.newHashMap();
-        for (Rent rent : rents) {
-            int start = rent.getStart();
-            if (rentsByHour.get(start) == null) {
-                rentsByHour.put(start, Lists.<Rent>newArrayList());
-            }
-            rentsByHour.get(start).add(rent);
-        }
-        return rentsByHour;
-    }
-
-    private List<Plan> findAppendablePlans(int hour, Map<Integer, Plan> bestPlanByHour) {
-        List<Plan> list = Lists.newArrayList();
-        for (Integer end : bestPlanByHour.keySet()) {
-            if (end <= hour) {
-                final Plan plan = bestPlanByHour.get(end);
-                list.add(plan);
-            }
-        }
-        return list;
-    }
-
-    Plan findMostProfitablePlanAtHour(int hour, Map<Integer, Plan> bestPlanByHour) {
-        Plan best = null;
-        for (Map.Entry<Integer, Plan> entry : bestPlanByHour.entrySet()) {
-            Plan value = entry.getValue();
-            if (value.getEnd() <= hour && (best == null || value.compareTo(best) > 0)) {
-                best = Plan.fromPlan(value);
-            }
-        }
-        return best;
-    }
-
-    Plan getBest(Map<Integer, Plan> bestPlanByHour) {
-        final List<Plan> plans = Lists.newArrayList(bestPlanByHour.values());
-        Collections.sort(plans);
-        return plans.get(plans.size() - 1);
-    }
 }

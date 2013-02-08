@@ -40,7 +40,7 @@ public class Rent implements Serializable, Comparable<Rent> {
 
     @Override
     public int compareTo(Rent o) {
-        return this.start - o.start;
+        return this.getEnd() - o.getEnd();
     }
 
     public String getName() {

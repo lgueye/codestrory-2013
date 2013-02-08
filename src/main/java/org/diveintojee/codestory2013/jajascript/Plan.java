@@ -1,12 +1,11 @@
 package org.diveintojee.codestory2013.jajascript;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,85 +13,76 @@ import java.util.List;
  */
 public class Plan implements Serializable, Comparable<Plan> {
 
-    private List<Rent> rents;
+  private final Rent rent;
+  private final Plan lastPlan;
+  private int revenue;
 
-    public Plan(List<Rent> rents) {
-        this.rents = rents;
+  public Plan(Rent rent) {
+    this(rent, null);
+  }
+
+  public Plan(Rent rent, Plan lastPlan) {
+    this.rent = rent;
+    this.lastPlan = lastPlan;
+    this.revenue = (lastPlan != null ? lastPlan.getRevenue() : 0) + rent.getAmount();
+  }
+
+  @JsonProperty("path")
+  public List<String> getPath() {
+    final ArrayList<String> path = Lists.newArrayList();
+    if (lastPlan != null) {
+      path.addAll(lastPlan.getPath());
+    }
+    path.add(rent.getName());
+    return path;
+  }
+
+  @JsonProperty("gain")
+  public int getRevenue() {
+    return revenue;
+  }
+
+  public Plan addRent(Rent rent) {
+    return new Plan(rent, this);
+  }
+
+  public int compareTo(Plan other) {
+    return this.getRevenue() - other.getRevenue();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Plan)) {
+      return false;
     }
 
-    public Plan() {
+    Plan plan = (Plan) o;
+
+    if (lastPlan != null ? !lastPlan.equals(plan.lastPlan) : plan.lastPlan != null) {
+      return false;
+    }
+    if (!rent.equals(plan.rent)) {
+      return false;
     }
 
-    public static Plan fromPlan(Plan plan) {
-        Plan tmp = new Plan(Lists.<Rent>newArrayList());
-        for (Rent rent : plan.getRents()) {
-            tmp.addRent(rent);
-        }
-        return tmp;
-    }
+    return true;
+  }
 
-    @JsonProperty("path")
-    public List<String> getPath() {
-        return Lists.newArrayList(Collections2.transform(this.rents, new Function<Rent, String>() {
-            @Override
-            public String apply(Rent input) {
-                return input.getName();
-            }
-        }));
-    }
+  @Override
+  public int hashCode() {
+    int result = rent.hashCode();
+    result = 31 * result + (lastPlan != null ? lastPlan.hashCode() : 0);
+    return result;
+  }
 
-    @JsonProperty("gain")
-    public int getRevenue() {
-        int revenue = 0;
-        for (Rent rent : rents) {
-            revenue += rent.getAmount();
-        }
-        return revenue;
-    }
-
-    public void addRent(Rent rent) {
-        this.rents.add(rent);
-    }
-
-    public int compareTo(Plan other) {
-        return this.getRevenue() - other.getRevenue();
-    }
-
-    @JsonIgnore
-    public int getEnd() {
-        int end = 0;
-        for (Rent rent : rents) {
-            if (rent.getEnd() > end) end = rent.getEnd();
-        }
-        return end;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Plan plan = (Plan) o;
-        if (!rents.equals(plan.rents)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return rents.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "Plan{" +
-                "gain=" + getRevenue() +
-                ", path=" + getPath() +
-                '}';
-    }
-
-    @JsonIgnore
-    public List<Rent> getRents() {
-        return rents;
-    }
+  @Override
+  public String toString() {
+    return "Plan{" +
+           "gain=" + getRevenue() +
+           ", path=" + getPath() +
+           '}';
+  }
 }

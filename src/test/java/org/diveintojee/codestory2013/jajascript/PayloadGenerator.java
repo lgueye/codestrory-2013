@@ -66,13 +66,13 @@ public class PayloadGenerator {
 
     @Test
     public void testManyLevels() {
-        testALevel(5000);
+//        testALevel(5000);
 //        testALevel(10000);
 //        testALevel(50000);
 //        testALevel(100000);
 //        testALevel(200000);
 //        testALevel(500000);
-//        testALevel(1000000);
+        testALevel(1000000);
 
     }
 }

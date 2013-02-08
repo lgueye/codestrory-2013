@@ -12,13 +12,11 @@ public class PlanTest {
 
     @Test
     public void compareToShouldSucceed() throws Exception {
-        Plan planA = new Plan(Lists.<Rent>newArrayList());
-        Rent a = new Rent("a", 0, 5, 6);
-        planA.addRent(a);
-        Plan planB = new Plan(Lists.<Rent>newArrayList());
-        Rent b = new Rent("b", 4, 2, 9);
-        planB.addRent(b);
-        assertTrue(planB.compareTo(planA) > 0);
+      Rent a = new Rent("a", 0, 5, 6);
+      Plan planA = new Plan(a);
+      Rent b = new Rent("b", 4, 2, 9);
+      Plan planB = new Plan(b);
+      assertTrue(planB.compareTo(planA) > 0);
     }
 
 }
